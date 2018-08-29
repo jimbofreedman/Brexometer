@@ -160,7 +160,7 @@ class UserStore {
   setupAuthToken(authToken) {
     return new Promise((resolve, reject) => {
       this.sessionData.set("authToken", authToken);
-      Cookies.set("representAuthToken", authToken, { expires: Infinity, domain: (window.location.origin.indexOf("http://localhost") != -1) ? null : 'represent.me' });
+      Cookies.set("representAuthToken", authToken, { expires: Infinity, domain: (window.location.origin.indexOf("http://localhost") !== -1) ? null : 'represent.me' });
       window.API.defaults.headers.common['Authorization'] = "Token " + authToken;
       this.getMe()
         .then((response) => {
@@ -242,7 +242,7 @@ class UserStore {
 
   logout() {
     Cookies.expire("representAuthToken"); // delete old token if exist
-    Cookies.expire("representAuthToken", { domain: (window.location.origin.indexOf("http://localhost") != -1) ? null : 'represent.me' });
+    Cookies.expire("representAuthToken", { domain: (window.location.origin.indexOf("http://localhost") !== -1) ? null : 'represent.me' });
     this.sessionData.set("authToken", "");
     this.userData.replace({});
     this.sessionData.set("showUserDialogue", false);

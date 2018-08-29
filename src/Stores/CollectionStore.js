@@ -353,8 +353,8 @@ class CollectionStore {
       for (var i = 0; i < oldItems.length; i++) {
         let shouldDelete = true;
         for (var j = 0; j < newItems.length; j++) {
-          if(oldItems[i].id == newItems[j].id) {
-            if(oldItems[i].order != j) {
+          if(oldItems[i].id === newItems[j].id) {
+            if(oldItems[i].order !== j) {
               newItems[j].order = j;
               itemsToPatch.push(newItems[j])
             }

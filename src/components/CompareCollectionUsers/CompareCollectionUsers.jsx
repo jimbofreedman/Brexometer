@@ -18,7 +18,7 @@ var CompareCollectionUsers = inject("CollectionStore", "UserStore")(observer(({ 
     compareData: observable.shallowMap()
   });
 
-  if (userIds.length == 0) console.warn('No users specified to compare');
+  if (userIds.length === 0) console.warn('No users specified to compare');
   if (userLoggedIn) {
     userIds.forEach((id) => {
       UserStore.getUserById(id).then((res) => viewData.users.push(res))
@@ -31,7 +31,7 @@ var CompareCollectionUsers = inject("CollectionStore", "UserStore")(observer(({ 
 
 const CompareCollectionUsersView = observer(({data})=> {
   if (!data.isLoggedIn) return <SignInToSeeView />;
-  if (data.users.length == 0) return <LoadingIndicator />;
+  if (data.users.length === 0) return <LoadingIndicator />;
   return (<div>
     {data.users.map((user) => {
       return (<UserCard key={user.id} user={user} compareData={data.compareData.get(user.id)}/>)

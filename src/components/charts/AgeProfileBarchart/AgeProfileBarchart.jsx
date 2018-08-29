@@ -108,9 +108,9 @@ let computeBarchartData = (data) => {
       exclude values where age_group is not specified
       and exclude votes with people age > 100 year (age_group=0)
     */
-    if (!value.age_group || value.age_group == 0) return;
+    if (!value.age_group || value.age_group === 0) return;
     let index = 10 - value.age_group;
-    let gender = (value.gender == 1 && "male") || (value.gender == 2 && "female") || (value.gender == 3 && "other") || (value.gender == 0 && "notSay");
+    let gender = (value.gender === 1 && "male") || (value.gender === 2 && "female") || (value.gender === 3 && "other") || (value.gender === 0 && "notSay");
     barchartData[index][gender] += value.id__count;
   })
   return barchartData;

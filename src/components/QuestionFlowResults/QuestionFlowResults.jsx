@@ -22,7 +22,7 @@ class QuestionFlowResults extends Component {
     this.showingTabIndex.set(type)
     // const pieChart = type === "bar" ? false : true;
 
-    // if (this.state.pie != pieChart)
+    // if (this.state.pie !== pieChart)
     //   this.setState({pie: pieChart})
   }
 

@@ -30,7 +30,7 @@ const CertanityStatisticsBarchart = inject("CensusDataStore", "DemographicsDataS
 
     if(!geoId) geoId = 59;
     CensusDataStore.getCensusData(geoId).then(function(res) {
-      if (res.results.length == 0) {
+      if (res.results.length === 0) {
         return CensusDataStore.getCensusData(59).then((res) => {
           censusData = res.results;
           finishedReqCount++;
@@ -52,7 +52,7 @@ const CertanityStatisticsBarchart = inject("CensusDataStore", "DemographicsDataS
     })
 
     let finish = () => {
-      if (finishedReqCount == 2) cb(censusData, demogrData);
+      if (finishedReqCount === 2) cb(censusData, demogrData);
     }
   }
 })
@@ -183,7 +183,7 @@ let computeStatisticsData = (censusData, demogrData) => {
           break;
       }
 
-      if (demogrData.ageggendervalues[i].age_range != '<15') {
+      if (demogrData.ageggendervalues[i].age_range !== '<15') {
         canVoteSum += demogrData.ageggendervalues[i].id__count;
       }
     }
@@ -219,7 +219,7 @@ function determineSampleSize(certainity, confidence, population) {
   };
   var zVal = zValues[certainity];
   var ss = 0;
-  if (population == 0) {
+  if (population === 0) {
     ss = ((zVal * zVal) * 0.25) / ((confidence / 100) * (confidence / 100))
   } else {
     ss = ((zVal * zVal) * 0.25) / ((confidence / 100) * (confidence / 100));

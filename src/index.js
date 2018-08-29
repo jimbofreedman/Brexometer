@@ -37,7 +37,7 @@ window.authSettings = {
   facebookId: 1499361770335561,
   googleMapsAPI: "AIzaSyDZxI6243Bb460yabWL_tyN97NBH6hsnwo",
 }
-if(location.host.indexOf('staging') != -1 || location.host.indexOf('localhost') != -1) {
+if(location.host.indexOf('staging') !== -1 || location.host.indexOf('localhost') !== -1) {
   window.authSettings.facebookId = 1684727181799018;
   window.API = axios.create({
     baseURL: 'https://staging.represent.me'

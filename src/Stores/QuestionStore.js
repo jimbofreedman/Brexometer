@@ -145,7 +145,7 @@ class QuestionStore {
       private: isPrivate,
     }
     for (var i = 0; i < question.choices.length; i++) {
-      if(question.choices[i].id == choiceId) {
+      if(question.choices[i].id === choiceId) {
         question.choices[i].liquid_vote_count++;
         question.choices[i].modified_at = (new Date()).toDateString();
         break;

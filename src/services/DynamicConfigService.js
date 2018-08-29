@@ -107,7 +107,7 @@ class DynamicConfigService {
     let first_two_chars = last_part.substr(0, 2)
     if (first_two_chars === "%7") {
       return last_part;
-    } else if(encodeURIComponent(last_part).substr(0,2) == "%7") {
+    } else if(encodeURIComponent(last_part).substr(0,2) === "%7") {
       return encodeURIComponent(last_part);
     } else {
       return null;
