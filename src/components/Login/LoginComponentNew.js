@@ -107,7 +107,7 @@ const styles = {
       <Paper zDepth={0} className='containerStyle'>
 
         <div style={{textAlign: 'center'}}>
-        <img src="/static/media/represent_white_outline.dbff67a6.svg" style={{ height: 60, margin: '10px auto'}} />
+        <img src="/static/media/represent_white_outline.dbff67a6.svg" style={{ height: 60, margin: '10px auto'}} alt="" />
 
         <h2 style={{margin: '10px 0'}}>
           Welcome back!

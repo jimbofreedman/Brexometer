@@ -594,7 +594,7 @@ class UserCardSmall extends Component {
             }}>
 
               <CardMedia>
-                <img src={media} />
+                <img src={media} alt="" />
               </CardMedia>
 
               <div className="personsharelinks">

@@ -26,7 +26,7 @@ import logo from './represent_white_outline.svg';
       <div style={{ display: 'table', width: '100%', height: '100%' }}>
         <div className="FlowTransition" style={{ display: 'table-cell', verticalAlign: 'middle', textAlign: 'center', width: '100%' }}>
           <div style={{ width: '300px', display: 'inline-block', margin: '20px 0' }}>
-            <img src={logo} style={{width: '100px'}} /><br/>
+            <img src={logo} style={{width: '100px'}} alt="" /><br/>
             <Formsy.Form onValidSubmit={this.onSubmitA} onValid={() => this.toggleSubmitA(true)} onInvalid={() => this.toggleSubmitA(false)}>
               <FormsyText
                 name="first_name"

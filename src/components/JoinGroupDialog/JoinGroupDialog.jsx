@@ -94,10 +94,10 @@ class JoinGroupDialog extends Component {
           <table className="icons-wrapper-icon">
             <tr>
             <td width="50%" styles={{textAlign: 'right'}}>
-              <img src={this.state.group.image} className="avatar" />
+              <img src={this.state.group.image} className="avatar" alt="" />
             </td>
             <td width="50%" styles={{textAlign: 'left'}}>
-              <img src="/static/media/represent_white_outline.dbff67a6.svg"  className="avatar" />
+              <img src="/static/media/represent_white_outline.dbff67a6.svg"  className="avatar" alt="" />
             </td>
             </tr>
             </table>

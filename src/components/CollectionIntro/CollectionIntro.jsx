@@ -114,7 +114,7 @@ import './CollectionIntro.css';
     return (
       <div style={imageStyle}>
         <div style={outerStyle}>
-          {collection.photo && <img src={collection.photo.replace("localhost:8000", "represent.me")} style={{display: 'none'}} onLoad={() => {this.setState({collectionImageLoaded: true})}} />}
+          {collection.photo && <img src={collection.photo.replace("localhost:8000", "represent.me")} style={{display: 'none'}} alt="" onLoad={() => {this.setState({collectionImageLoaded: true})}} />}
           <div style={innerStyle} className="imageContainer">
             <div className="contentBox">
 

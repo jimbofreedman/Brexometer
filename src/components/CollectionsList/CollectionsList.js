@@ -117,7 +117,7 @@ const CollectionsList = inject("CollectionStore", "UserStore")(observer(({ Colle
               */}
 
                 <CardMedia>
-                  <img src={image} className='imgStyle'/>
+                  <img src={image} className='imgStyle' alt='' />
                 </CardMedia>
                 <CardTitle
                   className='cardTitle'

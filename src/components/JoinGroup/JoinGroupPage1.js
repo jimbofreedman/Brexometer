@@ -56,8 +56,8 @@ const JoinGroupPage1 = (props) => {
     <div style={{width: '100%', height: '100%'}}>
       <Paper zDepth={0} className='containerStyle'>
         <div style={styles.buttonsContainerStyle}>
-          <img src={props.groupLogo ? props.groupLogo : null} style={styles.imgStyleJoin} />
-          <img src={smallLogo} style={styles.imgStyleJoin} />
+          <img src={props.groupLogo ? props.groupLogo : null} style={styles.imgStyleJoin} alt="" />
+          <img src={smallLogo} style={styles.imgStyleJoin} alt="" />
         </div>
         <p style={{margin: '10px 0'}}>
           {`We're working with Represent to modernise democracy. `}

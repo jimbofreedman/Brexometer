@@ -26,7 +26,7 @@ const IntroCarouselCard = (props) => {
                 }
 
               {props.img && <div style={{textAlign: 'center'}}>
-                <img src={`/img/introtour/${props.img}`} className='carouselMedia'/>
+                <img src={`/img/introtour/${props.img}`} className='carouselMedia' alt=""/>
               </div>}
 
               <CardText style={{wordWrap: 'break-word', marginTop: 0, color: 'white'}}>

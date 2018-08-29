@@ -16,7 +16,7 @@ const LoadingIndicator = (props) => {
     return (
         <div style={containerStyle}>
             <div style={{textAlign: 'center'}}>
-            <img src="https://app.represent.me/assets/img/logos/animated/long-100.gif" />
+            <img src="https://app.represent.me/assets/img/logos/animated/long-100.gif" alt="" />
             <p>Calculating how you compare...</p>
             </div>
         </div>

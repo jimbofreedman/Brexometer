@@ -45,7 +45,7 @@ const Page1 = (props) => {
     <div className="accountmgmt">
       <Paper zDepth={0} className='containerStyle'>
           <div style={{textAlign: 'center'}}>
-      <img src="/static/media/represent_white_outline.dbff67a6.svg" className="introimage" />
+      <img src="/static/media/represent_white_outline.dbff67a6.svg" className="introimage" alt="" />
       <h2 style={{margin: '10px 0'}}>
           A Revolution in Democracy
         </h2>
