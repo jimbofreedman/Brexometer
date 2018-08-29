@@ -225,6 +225,8 @@ class UserStore {
 
             if(response.data.status === "OK") {
               let raw_location = response.data.results[0].geometry.location;
+              // FIXME: what does this do?
+              // eslint-disable-next-line no-native-reassign
               location =  {
                 "type": "Point",
                 "coordinates": [raw_location.lng, raw_location.lat]
