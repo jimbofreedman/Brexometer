@@ -368,8 +368,7 @@ class CollectionStore {
       let queue = itemsToPatch.map((item) => window.API.patch(`/api/question_collection_items/${item.id}/`, { order: item.order, type: item.type, object_id: item.object_id, content_object: item.content_object, parent:item.parent }))
       queue = queue.concat(itemsToDelete.map((item) => window.API.delete(`/api/question_collection_items/${item.id}/`)))
 
-      window.API.all(queue).then(window.API.spread(function() {
-      }.bind(this)));
+      window.API.all(queue).then(window.API.spread(function() {}));
     })
     // return window.API.patch(`/api/question_collection_items/${collectionItem.id}/`, collectionItem)
   }

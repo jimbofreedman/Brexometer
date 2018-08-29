@@ -20,7 +20,7 @@ class QuestionStore {
           }
           self.questions.set(response.data.results[0].id, response.data.results[0]);
           return resolve(self.questions.get(response.data.results[0].id))
-        }.bind(self));
+        });
     })
   }
 
@@ -96,7 +96,7 @@ class QuestionStore {
       })
       .then(function (response) {
         // this.loadQuestion(questionId, true);
-      }.bind(this)).catch(err => console.log('err', err));
+      }).catch(err => console.log('err', err));
   }
 
   voteQuestionMCQ(questionId, value, collection = null, vote_private = true,
@@ -120,7 +120,7 @@ class QuestionStore {
       })
       .then(function (response) {
         // this.loadQuestion(questionId, true);
-      }.bind(this)).catch(err => console.log('err', err));
+      }).catch(err => console.log('err', err));
   }
 
   updateLikertResults = (questionId, value, isVotePrivate) => {
