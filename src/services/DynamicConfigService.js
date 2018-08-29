@@ -88,7 +88,7 @@ class DynamicConfigService {
       parts.shift()
       parts.forEach((part, index) => {
         if(index !== parts.length-1) {
-          updated_url = updated_url + part + "/"
+          updated_url += part + "/";
         }
       })
     }else {

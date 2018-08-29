@@ -176,7 +176,7 @@ export default @inject("DemographicsDataStore", "QuestionStore") @observer class
 
     let totalSampleSize = 0;
     bucketData.forEach((dataPoint, index) => {
-      totalSampleSize = totalSampleSize + dataPoint.sample_size
+      totalSampleSize += dataPoint.sample_size;
     });
 
     return (

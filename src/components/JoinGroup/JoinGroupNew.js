@@ -16,9 +16,9 @@ const roundUp = (x) => {
       return 10;
     }
     var y = Math.pow(10, x.toString().length-1);
-    x = (x/y);
+    x /= y;
     x = Math.ceil(x);
-    x = x*y;
+    x *= y;
     return x;
 }
 

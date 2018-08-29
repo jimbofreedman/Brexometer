@@ -166,28 +166,28 @@ export default @inject("DemographicsDataStore", "QuestionStore") @observer class
 
       let tempValue = {geo_id: geo.region_id, geo_name: countryMap[geo.region_id], error_margin: geo.error_margin, sample_size: geo.sample_size}
 
-      UKAverage.error_margin = (UKAverage.error_margin * UKAverage.sample_size + geo.error_margin * geo.sample_size) / (UKAverage.sample_size + geo.sample_size)
-      UKAverage.sample_size = UKAverage.sample_size + geo.sample_size
+      UKAverage.error_margin = (UKAverage.error_margin * UKAverage.sample_size + geo.error_margin * geo.sample_size) / (UKAverage.sample_size + geo.sample_size);
+      UKAverage.sample_size += + geo.sample_size;
 
       for (var key in geo.weighted_vote_breakdown) {
         tempValue[key] = parseFloat(geo.weighted_vote_breakdown[key].percentage)
         UKAverage[key] = ((UKAverage[key] * UKAverage.sample_size) + (geo.weighted_vote_breakdown[key].weighted_raw * geo.sample_size)) / (UKAverage.sample_size + geo.sample_size)
       }
 
-      keyValueGeos.push(tempValue)
-      totalSampleSize = totalSampleSize + geo.sample_size
+      keyValueGeos.push(tempValue);
+      totalSampleSize += geo.sample_size;
     });
 
     let UKAverageTotal = 0
     for (let i = 1; i <= 5; i++) {
-      UKAverageTotal = UKAverageTotal + UKAverage[i]
+      UKAverageTotal += UKAverage[i];
     }
 
     for (let i = 1; i <= 5; i++) {
-      UKAverage[i] = UKAverage[i] * 100/ UKAverageTotal
+      UKAverage[i] *= UKAverage[i] * 100/ UKAverageTotal;
     }
 
-    keyValueGeos.push(UKAverage)
+    keyValueGeos.push(UKAverage);
 
     return (
       <div style={{height: '100%', width: '100%', position: 'absolute'}}>
