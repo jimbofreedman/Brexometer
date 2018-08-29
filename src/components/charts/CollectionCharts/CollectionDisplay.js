@@ -187,6 +187,8 @@ const CardContainer = (props) => (
               <QuestionLiquidPiechart questionId={item.object_id} pie={props.pie}/>
           </Card>
           )
+        } else {
+          return ""
         }
       })}
     </div>

@@ -124,7 +124,7 @@ export default @inject("DemographicsDataStore", "QuestionStore") @observer class
       5: 0
     }
 
-    geoData.map((geo, index) => {
+    geoData.forEach((geo, index) => {
 
       let tempValue = {geo_id: geo.region_id, geo_name: countryMap[geo.region_id], error_margin: geo.error_margin, sample_size: geo.sample_size}
 

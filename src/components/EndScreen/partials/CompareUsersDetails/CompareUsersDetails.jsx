@@ -43,7 +43,7 @@ class CompareUsersDetails extends Component {
       let totalCount = 0;
       let diff = compareData.topic_diffs[key].diffs;
       let n = 0;
-      diff.map((d, i) => {
+      diff.forEach((d, i) => {
         n += d * i;
         totalCount += d;
       });

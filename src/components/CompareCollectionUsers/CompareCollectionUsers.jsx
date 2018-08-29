@@ -20,7 +20,7 @@ var CompareCollectionUsers = inject("CollectionStore", "UserStore")(observer(({ 
 
   if (userIds.length == 0) console.warn('No users specified to compare');
   if (userLoggedIn) {
-    userIds.map((id) => {
+    userIds.forEach((id) => {
       UserStore.getUserById(id).then((res) => viewData.users.push(res))
       UserStore.compareUsers(currentUserId, id).then((res) => viewData.compareData.set(id, res))
     })

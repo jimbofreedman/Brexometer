@@ -240,7 +240,7 @@ class MCQButtons extends Component {
     super(props);
 
     this.choiceHovers = observable([]);
-    this.props.choices.map((choice, i) => {
+    this.props.choices.forEach((choice, i) => {
       this.choiceHovers[i] = false;
     })
   }

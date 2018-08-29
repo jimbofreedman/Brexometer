@@ -86,7 +86,7 @@ class DynamicConfigService {
     if(first_two_chars === "%7" || first_two_chars === "{\"") {
       updated_url = "/"
       parts.shift()
-      parts.map((part, index) => {
+      parts.forEach((part, index) => {
         if(index !== parts.length-1) {
           updated_url = updated_url + part + "/"
         }

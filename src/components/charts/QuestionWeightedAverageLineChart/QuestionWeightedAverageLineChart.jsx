@@ -162,20 +162,20 @@ export default @inject("DemographicsDataStore", "QuestionStore") @observer class
     }
 
     let filteredData = [];
-    ageData.map((dataPoint, index) => { // Filter results by age
+    ageData.forEach((dataPoint, index) => { // Filter results by age
       if(dataPoint.age >= startAge && dataPoint.age <= endAge) {
         filteredData.push(dataPoint);
       }
     })
 
     let bucketData = [];
-    filteredData.map((dataPoint, index) => { // Put data into buckets
+    filteredData.forEach((dataPoint, index) => { // Put data into buckets
       bucketData[Math.round((index + 1) / bucketSize) * bucketSize] = mergeDataPoints(bucketData[Math.round((index + 1) / bucketSize) * bucketSize], dataPoint);
     });
     bucketData.clean(undefined);
 
     let totalSampleSize = 0;
-    bucketData.map((dataPoint, index) => {
+    bucketData.forEach((dataPoint, index) => {
       totalSampleSize = totalSampleSize + dataPoint.sample_size
     });
 

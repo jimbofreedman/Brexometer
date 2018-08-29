@@ -229,10 +229,12 @@ const SortableQuestions = SortableContainer(({items, question_objects, onRemove}
     <List>
       {items.map((item, index) => {
         if(item.type === "Q") { // Type is 'question'
-          const item_display = question_objects.filter(q => q.id === item.object_id)
-              return <SortableQuestion key={`item-${index}`} index={index} value={item_display[0]} orderNumber={(index + 1)} onRemove={() => onRemove(item.id)} />
-          } else if(item.type === "B") { // Type is 'break'
-            return <SortableQuestion key={`item-${index}`} index={index} value={item} orderNumber={(index + 1)} onRemove={() => onRemove(item.id)} />
+          const item_display = question_objects.filter(q => q.id === item.object_id);
+          return <SortableQuestion key={`item-${index}`} index={index} value={item_display[0]} orderNumber={(index + 1)} onRemove={() => onRemove(item.id)} />
+        } else if(item.type === "B") { // Type is 'break'
+          return <SortableQuestion key={`item-${index}`} index={index} value={item} orderNumber={(index + 1)} onRemove={() => onRemove(item.id)} />
+        } else {
+          throw new Error("unknown item type " + item.type);
         }
       })}
     </List>
