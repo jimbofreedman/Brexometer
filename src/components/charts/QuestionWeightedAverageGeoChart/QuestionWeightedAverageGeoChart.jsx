@@ -83,6 +83,44 @@ const customLegend = [
   }
 ];
 
+const customLabelRenderLikert = (props) => {
+  let labelItem = null;
+
+    labelItem = (
+      <Text
+        {...props}
+        fill="#474747"
+        className="recharts-bar-label"
+      >
+        {(parseInt(props.value)) + "%"}
+      </Text>
+    );
+
+  return labelItem;
+}
+
+const customLabelRender = (props) => {
+  let labelItem = null;
+
+    labelItem = (
+      <Text
+        {...props}
+        className="recharts-bar-label"
+      >
+        {"" + (Math.round(props.error_margin * 10) / 10) + "%"}
+      </Text>
+    );
+
+  return labelItem;
+}
+
+const countryMap = {
+  45690: "England",
+  45691: "N. Ireland",
+  45692: "Scotland",
+  45693: "Wales",
+}
+
 export default @inject("DemographicsDataStore", "QuestionStore") @observer class QuestionWeightedAverageLineChart extends Component {
 
   constructor() {
@@ -195,40 +233,3 @@ export default @inject("DemographicsDataStore", "QuestionStore") @observer class
 
 }
 
-const customLabelRender = (props) => {
-  let labelItem = null;
-
-    labelItem = (
-      <Text
-        {...props}
-        className="recharts-bar-label"
-      >
-        {"" + (Math.round(props.error_margin * 10) / 10) + "%"}
-      </Text>
-    );
-
-  return labelItem;
-}
-
-const customLabelRenderLikert = (props) => {
-  let labelItem = null;
-
-    labelItem = (
-      <Text
-        {...props}
-        fill="#474747"
-        className="recharts-bar-label"
-      >
-        {(parseInt(props.value)) + "%"}
-      </Text>
-    );
-
-  return labelItem;
-}
-
-const countryMap = {
-  45690: "England",
-  45691: "N. Ireland",
-  45692: "Scotland",
-  45693: "Wales",
-}

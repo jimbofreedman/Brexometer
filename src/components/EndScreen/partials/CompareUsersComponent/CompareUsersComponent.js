@@ -201,18 +201,6 @@ class CompareCollectionUsers extends Component {
       this.viewData.pageReadiness.isCompareUsersReady.set(true);
     }
 
-
-    UserStore.getCachedMe().then(user => {
-      if (this.dynamicConfig.config.survey_end.should_show_compare_candidates && user.district) {
-        UserStore.getCandidatesByLocation(user.district).then(candidates => {
-          console.log(candidates, user.district)
-          this.viewData.candidates.replace(candidates); //this.viewData.candidates.peek()
-          setCandidatesStat()
-        })
-      } else {
-        setCandidatesStat()
-      }
-    })
     const setCandidatesStat = () => {
       //candidates shown by default
       this.viewData.areLocalCandidatesShowing.set(true);
@@ -238,6 +226,18 @@ class CompareCollectionUsers extends Component {
         this.viewData.pageReadiness.isCompareCandidatesReady.set(true);
       })
     }
+
+    UserStore.getCachedMe().then(user => {
+      if (this.dynamicConfig.config.survey_end.should_show_compare_candidates && user.district) {
+        UserStore.getCandidatesByLocation(user.district).then(candidates => {
+          console.log(candidates, user.district)
+          this.viewData.candidates.replace(candidates); //this.viewData.candidates.peek()
+          setCandidatesStat()
+        })
+      } else {
+        setCandidatesStat()
+      }
+    })
   }
 
   render() {

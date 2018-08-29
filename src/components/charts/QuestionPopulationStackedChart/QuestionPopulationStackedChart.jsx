@@ -27,6 +27,10 @@ const QuestionPopulationStackedChart = inject("CensusDataStore", "DemographicsDa
     let demogrData = null;
     let question = null;
 
+    let finish = () => {
+      if (finishedReqCount === 3) cb(censusData, demogrData, question);
+    }
+
     if (!geoId) geoId = 59;
     CensusDataStore.getCensusData(geoId).then(function (res) {
       if (res.results.length === 0) {
@@ -55,11 +59,6 @@ const QuestionPopulationStackedChart = inject("CensusDataStore", "DemographicsDa
       finishedReqCount++;
       finish();
     })
-
-
-    let finish = () => {
-      if (finishedReqCount === 3) cb(censusData, demogrData, question);
-    }
   }
 })
 

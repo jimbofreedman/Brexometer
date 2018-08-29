@@ -5,120 +5,9 @@ import { observable } from "mobx";
 import { BarChart, Bar, XAxis, YAxis, Rectangle, ResponsiveContainer } from 'recharts';
 import LoadingIndicator from '../../LoadingIndicator';
 
-const CertanityStatisticsBarchart = inject("CensusDataStore", "DemographicsDataStore")(({ CensusDataStore, DemographicsDataStore, questionId, geoId}) => {
-  let certainityStatisticsArr = null;
-  let currentlyShowingIndex = null;
-  let viewData = observable.shallowObject({
-    values: null
-  });
-
-  initData(function (censusData, demogrData) {
-    certainityStatisticsArr = computeStatisticsData(censusData, demogrData);
-    currentlyShowingIndex = getIndexToShow(certainityStatisticsArr);
-    viewData.values = generateChartValues(certainityStatisticsArr[currentlyShowingIndex]);
-  })
-
-	return (
-    <CertanityStatisticsBarchartView data={viewData} />
-	)
-
-
-  function initData(cb) {
-    let finishedReqCount = 0;
-    let censusData = null;
-    let demogrData = null;
-
-    if(!geoId) geoId = 59;
-    CensusDataStore.getCensusData(geoId).then(function(res) {
-      if (res.results.length === 0) {
-        return CensusDataStore.getCensusData(59).then((res) => {
-          censusData = res.results;
-          finishedReqCount++;
-          finish();
-        });
-      }
-      censusData = res.results;
-      finishedReqCount++;
-      finish();
-    })
-
-    DemographicsDataStore.getQuestionDemographicsData({
-      questionId: questionId,
-      // geoId: geoId
-    }).then(function(res) {
-      demogrData = res;
-      finishedReqCount++;
-      finish();
-    })
-
-    let finish = () => {
-      if (finishedReqCount === 2) cb(censusData, demogrData);
-    }
-  }
-})
-
-const BAR_BACKGROUND = '#e6e6e6';
-const BAR_HEIGHT = 40;
-const LABEL_FONT_SIZE = 18;
-
-const CertanityStatisticsBarchartView = observer(({ data }) => {
-  return (
-    <div>
-      {!data.values && <LoadingIndicator />}
-      {data.values && 
-        <ResponsiveContainer height={BAR_HEIGHT}>
-          <BarChart
-            layout="vertical"
-            data={data.values}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-          >
-            <XAxis domain={[0, 100]} hide={true} type="number"/>
-            <YAxis type="category" hide={true} />
-            <Bar dataKey="votes_left" stackId="1" shape={<CustomBar radius={[0, 3, 3, 0]}/>} fill={BAR_BACKGROUND} radius={[3,3,3,3]}/>
-            <Bar dataKey="x_votes" stackId="1" fill="#3b91d3" label={<CustomizedLabel text="X" />} />
-            <Bar dataKey="f_votes" stackId="1" fill="#316e93" label={<CustomizedLabel text="F" />} />
-            <Bar dataKey="m_votes" stackId="1" shape={<CustomBar radius={[3, 0, 0, 3]} />} fill="#448eb3" label={<CustomizedLabel text="M" />} />
-          </BarChart>
-        </ResponsiveContainer>}
-    </div>
-  );
-})
-
-const CustomizedLabel = (props) => {
-  const { x, y, text, width } = props;
-  return <text x={x} y={y} dx={-width / 2 - 5} fill="white" fontSize={LABEL_FONT_SIZE} textAnchor="middle">{text}</text>
-};
-
-
-const CustomBar = (props) => {
-  return <Rectangle {... props}/>
-};
-
-/////////
-
-function getIndexToShow(certainityStatisticsArr) {
-  let showingIndex = null;
-  for (var i = 0; i < certainityStatisticsArr.length; i++) {
-    showingIndex = i;
-    if (certainityStatisticsArr[i].reachedPercantage.total < 100) {
-      break;
-    }
-  }
-  return showingIndex;
-}
-
-function generateChartValues(certainityStatistics) {
-  return [{
-    m_votes: certainityStatistics.reachedPercantage.male,
-    f_votes: certainityStatistics.reachedPercantage.female,
-    x_votes: certainityStatistics.reachedPercantage.decline,
-    votes_left: 100 - (certainityStatistics.reachedPercantage.male + certainityStatistics.reachedPercantage.female + certainityStatistics.reachedPercantage.decline),
-  }]
-}
-
 
 let computeStatisticsData = (censusData, demogrData) => {
-  var population = 712500000; //censusData[0].all_ages 
+  var population = 712500000; //censusData[0].all_ages
   let reachedNumber = {
     total: null,
     male: null,
@@ -209,6 +98,117 @@ let computeStatisticsData = (censusData, demogrData) => {
     }
   }
   return certainityStatistics;
+}
+
+const CertanityStatisticsBarchart = inject("CensusDataStore", "DemographicsDataStore")(({ CensusDataStore, DemographicsDataStore, questionId, geoId}) => {
+  let certainityStatisticsArr = null;
+  let currentlyShowingIndex = null;
+  let viewData = observable.shallowObject({
+    values: null
+  });
+
+  initData(function (censusData, demogrData) {
+    certainityStatisticsArr = computeStatisticsData(censusData, demogrData);
+    currentlyShowingIndex = getIndexToShow(certainityStatisticsArr);
+    viewData.values = generateChartValues(certainityStatisticsArr[currentlyShowingIndex]);
+  })
+
+	return (
+    <CertanityStatisticsBarchartView data={viewData} />
+	)
+
+
+  function initData(cb) {
+    let finishedReqCount = 0;
+    let censusData = null;
+    let demogrData = null;
+
+    let finish = () => {
+      if (finishedReqCount === 2) cb(censusData, demogrData);
+    }
+
+    if(!geoId) geoId = 59;
+    CensusDataStore.getCensusData(geoId).then(function(res) {
+      if (res.results.length === 0) {
+        return CensusDataStore.getCensusData(59).then((res) => {
+          censusData = res.results;
+          finishedReqCount++;
+          finish();
+        });
+      }
+      censusData = res.results;
+      finishedReqCount++;
+      finish();
+    })
+
+    DemographicsDataStore.getQuestionDemographicsData({
+      questionId: questionId,
+      // geoId: geoId
+    }).then(function(res) {
+      demogrData = res;
+      finishedReqCount++;
+      finish();
+    })
+  }
+})
+
+const BAR_BACKGROUND = '#e6e6e6';
+const BAR_HEIGHT = 40;
+const LABEL_FONT_SIZE = 18;
+
+const CertanityStatisticsBarchartView = observer(({ data }) => {
+  return (
+    <div>
+      {!data.values && <LoadingIndicator />}
+      {data.values && 
+        <ResponsiveContainer height={BAR_HEIGHT}>
+          <BarChart
+            layout="vertical"
+            data={data.values}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+          >
+            <XAxis domain={[0, 100]} hide={true} type="number"/>
+            <YAxis type="category" hide={true} />
+            <Bar dataKey="votes_left" stackId="1" shape={<CustomBar radius={[0, 3, 3, 0]}/>} fill={BAR_BACKGROUND} radius={[3,3,3,3]}/>
+            <Bar dataKey="x_votes" stackId="1" fill="#3b91d3" label={<CustomizedLabel text="X" />} />
+            <Bar dataKey="f_votes" stackId="1" fill="#316e93" label={<CustomizedLabel text="F" />} />
+            <Bar dataKey="m_votes" stackId="1" shape={<CustomBar radius={[3, 0, 0, 3]} />} fill="#448eb3" label={<CustomizedLabel text="M" />} />
+          </BarChart>
+        </ResponsiveContainer>}
+    </div>
+  );
+})
+
+const CustomizedLabel = (props) => {
+  const { x, y, text, width } = props;
+  return <text x={x} y={y} dx={-width / 2 - 5} fill="white" fontSize={LABEL_FONT_SIZE} textAnchor="middle">{text}</text>
+};
+
+
+const CustomBar = (props) => {
+  return <Rectangle {... props}/>
+};
+
+/////////
+
+function getIndexToShow(certainityStatisticsArr) {
+  let showingIndex = null;
+  for (var i = 0; i < certainityStatisticsArr.length; i++) {
+    showingIndex = i;
+    if (certainityStatisticsArr[i].reachedPercantage.total < 100) {
+      break;
+    }
+  }
+  return showingIndex;
+}
+
+function generateChartValues(certainityStatistics) {
+  return [{
+    m_votes: certainityStatistics.reachedPercantage.male,
+    f_votes: certainityStatistics.reachedPercantage.female,
+    x_votes: certainityStatistics.reachedPercantage.decline,
+    votes_left: 100 - (certainityStatistics.reachedPercantage.male + certainityStatistics.reachedPercantage.female + certainityStatistics.reachedPercantage.decline),
+  }]
 }
 
 function determineSampleSize(certainity, confidence, population) {
