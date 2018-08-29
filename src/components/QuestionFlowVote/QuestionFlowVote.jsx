@@ -110,9 +110,10 @@ class QuestionFlowVote extends Component {
     const { hiddenIcon, icon } = styles
     const showAnswered = item.type === "Q" && !!currentQuestion.my_vote.length
 
-    const m_names = new Array("Jan", "Feb", "Mar",
-      "Apr", "May", "Jun", "Jul", "Aug", "Sep",
-      "Oct", "Nov", "Dec");
+    const m_names = [
+      "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ];
 
     return (
        <div style={{height: '100%'}}>

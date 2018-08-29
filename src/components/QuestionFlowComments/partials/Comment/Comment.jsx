@@ -106,9 +106,10 @@ class Comment extends Component {
           round />
       </TwitterShareButton>
     )
-    const m_names = new Array("Jan", "Feb", "Mar",
-      "Apr", "May", "Jun", "Jul", "Aug", "Sep",
-      "Oct", "Nov", "Dec");
+    const m_names = [
+      "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ];
 
     return (
       <div className="comment">
