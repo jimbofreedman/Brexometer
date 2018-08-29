@@ -27,6 +27,8 @@ const mergeDataPoints = (a, b) => {
   }
 }
 
+// FIXME: don't do this
+// eslint-disable-next-line no-extend-native
 Array.prototype.clean = function(deleteValue) {
   for (var i = 0; i < this.length; i++) {
     if (this[i] === deleteValue) {
