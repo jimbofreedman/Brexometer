@@ -7,7 +7,7 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import { white, cyan600, green100, red500 } from 'material-ui/styles/colors';
 import Divider from 'material-ui/Divider';
-import {SortableContainer, SortableElement, SortableHandle} from 'react-sortable-hoc';
+import {SortableContainer, SortableElement} from 'react-sortable-hoc';
 import {List, ListItem} from 'material-ui/List';
 
 import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';

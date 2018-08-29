@@ -1,21 +1,21 @@
 import React from 'react';
-import { inject, observer } from "mobx-react";
-import { observable, autorun, extendObservable } from "mobx";
-import { parse } from 'query-string';
-
-import AgeProfileBarchart from "../charts/AgeProfileBarchart";
-import AnswersOverTimeAreachart from "../charts/AnswersOverTimeAreachart";
-import QuestionResultsBarchart from "../charts/QuestionResultsBarchart";
-import QuestionPopulationStackedChart from "../charts/QuestionPopulationStackedChart";
-import CertanityStatisticsBarchart from "../charts/CertanityStatisticsBarchart";
-import QuestionWeightedAverageLineChart from '../charts/QuestionWeightedAverageLineChart';
-import QuestionService from "../../services/QuestionService";
-import CompareCollectionUsers from "../CompareCollectionUsers";
-import QuestionLiquidPiechart from '../charts/QuestionLiquidPiechart';
-
-import FollowUserDialog from '../FollowUserDialog';
-import JoinGroupDialog from '../JoinGroupDialog';
-import IntroCarousel from '../IntroCarousel';
+import { inject } from "mobx-react";
+// import { observable, autorun, extendObservable } from "mobx";
+// import { parse } from 'query-string';
+// 
+// import AgeProfileBarchart from "../charts/AgeProfileBarchart";
+// import AnswersOverTimeAreachart from "../charts/AnswersOverTimeAreachart";
+// import QuestionResultsBarchart from "../charts/QuestionResultsBarchart";
+// import QuestionPopulationStackedChart from "../charts/QuestionPopulationStackedChart";
+// import CertanityStatisticsBarchart from "../charts/CertanityStatisticsBarchart";
+// import QuestionWeightedAverageLineChart from '../charts/QuestionWeightedAverageLineChart';
+// import QuestionService from "../../services/QuestionService";
+// import CompareCollectionUsers from "../CompareCollectionUsers";
+// import QuestionLiquidPiechart from '../charts/QuestionLiquidPiechart';
+// 
+// import FollowUserDialog from '../FollowUserDialog';
+// import JoinGroupDialog from '../JoinGroupDialog';
+// import IntroCarousel from '../IntroCarousel';
 import MoreUserInfo from '../Components/modals/MoreUserInfo';
 
 const Test = inject("QuestionStore", "CollectionStore")(({ QuestionStore, CollectionStore, location, router, query }) => {

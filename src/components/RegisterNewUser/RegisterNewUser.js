@@ -216,7 +216,7 @@ import Page2 from './RegisterNewPage2';
 
 
   render(){
-    const {joinComplete, stepIndex} = this.state;
+    const {stepIndex} = this.state;
     return (
       <div>
 

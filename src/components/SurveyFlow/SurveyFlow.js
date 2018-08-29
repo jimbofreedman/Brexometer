@@ -64,7 +64,6 @@ import './SurveyFlow.css'
   loadCollectionQuestions = (curItemIndex) => {
     let curPage = Math.ceil(curItemIndex/10);
     curPage = curPage === 0 ? 1 : curPage;
-    const surveyId = this.props.match.params.surveyId;
 
     this.loadQuestionsByPage(curPage);
 

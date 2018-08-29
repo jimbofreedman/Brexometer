@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { observer, inject } from "mobx-react";
-import {SortableContainer, SortableElement, SortableHandle} from 'react-sortable-hoc';
+import {SortableContainer, SortableElement } from 'react-sortable-hoc';
 import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
 import { white, cyan600, green100 } from 'material-ui/styles/colors';
 import IconMenu from 'material-ui/IconMenu';
@@ -175,13 +175,5 @@ const SortableItem = SortableElement(({text, onSortEnd}) => {
     <ListItem primaryText={text} rightIcon={<Clear/>}/>
   )
 });
-
-const SortableQuestionLoading = SortableElement(() => {
-  return (
-    <ListItem primaryText="loading..." disabled={true}/>
-  )
-});
-
-var SortableQuestionHandle = SortableHandle(({orderNumber}) => <span>{orderNumber}</span>);
 
 export default CollectionAdminView

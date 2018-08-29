@@ -1,7 +1,5 @@
-import { observable, autorun, computed } from 'mobx';
+import { observable } from 'mobx';
 import Promise from 'promise';
-
-const instance = null;
 
 class QuestionCommentsStore {
 
@@ -49,12 +47,12 @@ class QuestionCommentsStore {
   }
 
   createReport(text) {
-    const data = {
-      body: `Sent from page https://app.represent.me/question/824/telepathy-is-a-real-phenomenon/
-      ===========================
-      ${text}`
-    }
-    //console.log(data)
+    // const data = {
+    //   body: `Sent from page https://app.represent.me/question/824/telepathy-is-a-real-phenomenon/
+    //   ===========================
+    //   ${text}`
+    // }
+    // console.log(data)
 
     //ToDo temporary code, just not to send many emails to Edd while develepmont process
     // remove to production

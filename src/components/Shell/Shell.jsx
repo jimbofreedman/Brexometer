@@ -62,11 +62,8 @@ import Drawer from 'material-ui/Drawer';
 
 
 import RemoveRedEye from 'material-ui/svg-icons/image/remove-red-eye';
-import Everyone from 'material-ui/svg-icons/places/all-inclusive';
 import Share from 'material-ui/svg-icons/social/share';
 import Important from 'material-ui/svg-icons/action/thumbs-up-down';
-import Party from 'material-ui/svg-icons/social/group';
-import Contacts from 'material-ui/svg-icons/communication/contacts';
 import Close from 'material-ui/svg-icons/navigation/close';
 
 
@@ -242,7 +239,6 @@ export default class Shell extends Component {
 
     const {
       avatarStyle,
-      leftIconStyle,
       pageWraperStyle,
       appBarStyles: { style, iconStyleLeft, iconStyleRight, titleStyle }
     } = styles

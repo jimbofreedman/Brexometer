@@ -1,5 +1,3 @@
-import { observable, autorun } from 'mobx';
-
 class UrlPreviewStore {
 
     getAdvancedStatsData(url, fb) {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer, inject } from "mobx-react";
-import { observable, computed, reaction } from 'mobx';
+import { observable, reaction } from 'mobx';
 
 import { Card, CardText, CardTitle, CardMedia } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';

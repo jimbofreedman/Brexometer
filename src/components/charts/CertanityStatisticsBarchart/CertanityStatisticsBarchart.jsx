@@ -57,7 +57,7 @@ let computeStatisticsData = (censusData, demogrData) => {
   var answeredMaleSum = 0;
   var answeredFemaleSum = 0;
   var answeredDiscurdSum = 0;
-  var canVoteSum = 0;
+//  var canVoteSum = 0;
   for (let i = 0; i < demogrData.ageggendervalues.length; i++) {
     if (!!demogrData.ageggendervalues[i].id__count && !!demogrData.ageggendervalues[i].age_range) {
       switch (demogrData.ageggendervalues[i].user__gender) {
@@ -73,7 +73,7 @@ let computeStatisticsData = (censusData, demogrData) => {
       }
 
       if (demogrData.ageggendervalues[i].age_range !== '<15') {
-        canVoteSum += demogrData.ageggendervalues[i].id__count;
+//        canVoteSum += demogrData.ageggendervalues[i].id__count;
       }
     }
   }

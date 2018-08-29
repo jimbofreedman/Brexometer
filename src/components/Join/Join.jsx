@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { observer, inject } from "mobx-react";
-import axios from 'axios';
-import MessengerPlugin from 'react-messenger-plugin';
 import MessengerCheckboxPlugin from '../MessengerCheckboxPlugin';
 
 import Paper from 'material-ui/Paper';
@@ -9,7 +7,6 @@ import TextField from 'material-ui/TextField';
 import { cyan600, grey100 } from 'material-ui/styles/colors';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
-import LinearProgress from 'material-ui/LinearProgress';
 import Checkbox from 'material-ui/Checkbox';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
