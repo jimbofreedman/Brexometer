@@ -3,10 +3,6 @@ import makeAsyncScriptLoader from 'react-async-script';
 
 class MessengerCheckboxPlugin extends Component {
 
-  constructor() {
-    super();
-  }
-
   initFacebookSDK() {
 
       const {FB} = this.props;

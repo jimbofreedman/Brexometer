@@ -17,13 +17,6 @@ import './QuestionFlowResults.css'
 class QuestionFlowResults extends Component {
 
   showingTabIndex = observable("pie"); // bar, map, people
-  constructor() {
-    super(...arguments)
-
-    // this.state = {
-    //   pie: false
-    // }
-  }
 
   changeGraph = (type) => {
     this.showingTabIndex.set(type)

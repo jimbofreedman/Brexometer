@@ -15,9 +15,6 @@ class QuestionCommentsStore {
     // }
   });
 
-  constructor() {
-  }
-
   getComments(id) {
     this.questionToComments[id] = new QuestionComments();
     const params = {

@@ -21,10 +21,6 @@ const CollectionCharts = (props) => {
 
 @inject("CollectionStore") @observer class CollectionDisplayView extends React.Component {
 
-  constructor(props) {
-    super(props);
-}
-
 componentWillMount() {
   let collectionId = parseInt(this.props.match.params.collectionId);
   if(!this.props.CollectionStore.collectionItems.has(collectionId)) {

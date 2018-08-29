@@ -10,10 +10,6 @@ const style = {
 
 class NoComments extends Component {
 
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     return (
       <Paper zDepth={0} style={style}>
