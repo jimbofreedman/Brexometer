@@ -44,7 +44,7 @@ let computeStatisticsData = (censusData, demogrData) => {
     }
   }
 
-  for (var i = 0; i < certainityStatistics.length; i++) {
+  for (let i = 0; i < certainityStatistics.length; i++) {
     certainityStatistics[i].neededNumber = determineSampleSize(
       certainityStatistics[i].certainity,
       certainityStatistics[i].confidenceInt,
@@ -58,7 +58,7 @@ let computeStatisticsData = (censusData, demogrData) => {
   var answeredFemaleSum = 0;
   var answeredDiscurdSum = 0;
   var canVoteSum = 0;
-  for (var i = 0; i < demogrData.ageggendervalues.length; i++) {
+  for (let i = 0; i < demogrData.ageggendervalues.length; i++) {
     if (!!demogrData.ageggendervalues[i].id__count && !!demogrData.ageggendervalues[i].age_range) {
       switch (demogrData.ageggendervalues[i].user__gender) {
         case 0:
@@ -84,7 +84,7 @@ let computeStatisticsData = (censusData, demogrData) => {
 
   // calculate percantage of answered users
   let reachedCoef = 100 / reachedNumber['total'];
-  for (var i = 0; i < certainityStatistics.length; i++) {
+  for (let i = 0; i < certainityStatistics.length; i++) {
     certainityStatistics[i].reachedPercantage['total'] = parseInt((reachedNumber['total'] * 100) / certainityStatistics[i].neededNumber);
 
     if (certainityStatistics[i].reachedPercantage.total > 100) {
