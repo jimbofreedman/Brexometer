@@ -79,7 +79,7 @@ class SmallCard extends Component {
                         onTouchTap={(e) => this.redirect(e, 'vote')}
                         iconStyle={{height: 16}}
                         style={{position: 'absolute', right: 65, top: -5}}>
-                        <ChangeAnswer style={iconStyles} color='#999' hoverColor='#1B8AAE' style={{height: 16}} />
+                        <ChangeAnswer style={{...iconStyles, height: 16}} color='#999' hoverColor='#1B8AAE' />
                       </IconButton>
                       <IconButton
                         tooltip="share"
