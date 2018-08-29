@@ -38,7 +38,8 @@ class CompareUsersDetails extends Component {
     this.voteValues.disagree.set(Math.round(100 * (compareData.difference_distances[4]) / totalCount));
 
     let diffs_array = [];
-    
+
+    // eslint-disable-next-line guard-for-in
     for (let key in compareData.topic_diffs) {
       let totalCount = 0;
       let diff = compareData.topic_diffs[key].diffs;

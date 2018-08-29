@@ -169,9 +169,10 @@ export default @inject("DemographicsDataStore", "QuestionStore") @observer class
       UKAverage.error_margin = (UKAverage.error_margin * UKAverage.sample_size + geo.error_margin * geo.sample_size) / (UKAverage.sample_size + geo.sample_size);
       UKAverage.sample_size += + geo.sample_size;
 
-      for (var key in geo.weighted_vote_breakdown) {
-        tempValue[key] = parseFloat(geo.weighted_vote_breakdown[key].percentage)
-        UKAverage[key] = ((UKAverage[key] * UKAverage.sample_size) + (geo.weighted_vote_breakdown[key].weighted_raw * geo.sample_size)) / (UKAverage.sample_size + geo.sample_size)
+      // eslint-disable-next-line guard-for-in
+      for (let key in geo.weighted_vote_breakdown) {
+        tempValue[key] = parseFloat(geo.weighted_vote_breakdown[key].percentage);
+        UKAverage[key] = ((UKAverage[key] * UKAverage.sample_size) + (geo.weighted_vote_breakdown[key].weighted_raw * geo.sample_size)) / (UKAverage.sample_size + geo.sample_size);
       }
 
       keyValueGeos.push(tempValue);

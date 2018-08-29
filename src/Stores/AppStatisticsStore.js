@@ -10,7 +10,9 @@ class AppStatisticsStore {
                 this.advancedData.set("start", response.data.results.start);
                 this.advancedData.set("end", response.data.results.end);
                 for(let key in response.data.results.data) {
+                  if (response.data.results.data.hasOwnProperty(key)) {
                     this.advancedData.set(key, response.data.results.data[key]);
+                  }
                 }
             });
     }
