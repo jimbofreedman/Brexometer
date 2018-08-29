@@ -66,7 +66,7 @@ const roundUp = (x) => {
     if(this.props.match.params.dynamicConfig) {
       this.dynamicConfig.setConfigFromRaw(this.props.match.params.dynamicConfig)
     }
-    let groupId = parseInt(this.props.match.params.groupId);
+    let groupId = parseInt(this.props.match.params.groupId, 10);
     window.API.get("/api/groups/" + groupId + "/")
       .then((response) => {
         this.setState({group: response.data});

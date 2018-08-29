@@ -37,11 +37,11 @@ import './SurveyFlow.css'
     if (!this.props.UserStore.generalAnalyticsData.analytics_os){
       this.props.UserStore.getGeneralAnalyticsData();
     }
-    this.props.CollectionStore.getCollectionById(parseInt(this.props.match.params.surveyId))
+    this.props.CollectionStore.getCollectionById(parseInt(this.props.match.params.surveyId, 10))
       .then((collection) => {this.setState({collection})})
       .catch((error) => {this.setState({networkError: true})})
 
-    // this.props.CollectionStore.getCollectionItemsById(parseInt(this.props.match.params.surveyId))
+    // this.props.CollectionStore.getCollectionItemsById(parseInt(this.props.match.params.surveyId, 10))
     //   .then((collectionItems) => {
     //     this.setState({collectionItems})
     //   })
@@ -133,17 +133,17 @@ import './SurveyFlow.css'
   }
 
   navigateNext() {
-    if (parseInt(this.props.match.params.itemNumber) + 1 === this.state.collectionItems.length) {
+    if (parseInt(this.props.match.params.itemNumber, 10) + 1 === this.state.collectionItems.length) {
       // this.navigateEnd()
       this.navigateEnd2()
     } else {
-      this.loadNextQuestionsPage(parseInt(this.props.match.params.itemNumber));
-      this.props.history.push('/survey/' + this.props.match.params.surveyId + '/flow/' + (parseInt(this.props.match.params.itemNumber) + 1) + '/vote/' + this.dynamicConfig.getEncodedConfig())
+      this.loadNextQuestionsPage(parseInt(this.props.match.params.itemNumber, 10));
+      this.props.history.push('/survey/' + this.props.match.params.surveyId + '/flow/' + (parseInt(this.props.match.params.itemNumber, 10) + 1) + '/vote/' + this.dynamicConfig.getEncodedConfig())
     }
   }
 
   navigatePrevious() {
-    this.props.history.push('/survey/' + this.props.match.params.surveyId + '/flow/' + (parseInt(this.props.match.params.itemNumber) - 1) + '/vote/' + this.dynamicConfig.getEncodedConfig())
+    this.props.history.push('/survey/' + this.props.match.params.surveyId + '/flow/' + (parseInt(this.props.match.params.itemNumber, 10) - 1) + '/vote/' + this.dynamicConfig.getEncodedConfig())
   }
 
   navigateN(n) {
@@ -176,7 +176,7 @@ import './SurveyFlow.css'
 
     let completed = 0
     if (items && items.length) {
-      completed = (parseInt(currentItemIndex) + 1) / (items.length) * 100
+      completed = (parseInt(currentItemIndex, 10) + 1) / (items.length) * 100
     }
 
     return (

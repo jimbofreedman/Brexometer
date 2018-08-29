@@ -92,7 +92,7 @@ const customLabelRenderLikert = (props) => {
         fill="#474747"
         className="recharts-bar-label"
       >
-        {(parseInt(props.value)) + "%"}
+        {(parseInt(props.value, 10)) + "%"}
       </Text>
     );
 

@@ -78,17 +78,17 @@ class QuestionFlow extends Component {
 
   getNextQuestion() {
     const { currentItemIndex } = this.props
-    this.props.navigateN(parseInt(currentItemIndex) + 1)
+    this.props.navigateN(parseInt(currentItemIndex, 10) + 1)
   }
 
   getPrevQuestion() {
     const { currentItemIndex } = this.props
-    this.props.navigateN(parseInt(currentItemIndex) - 1)
+    this.props.navigateN(parseInt(currentItemIndex, 10) - 1)
   }
 
   render() {
     let { items, currentItemIndex, onVote, activeTab, navigateNext, QuestionStore } = this.props
-    currentItemIndex = parseInt(currentItemIndex)
+    currentItemIndex = parseInt(currentItemIndex, 10)
 
     if(!items) {
       return null;

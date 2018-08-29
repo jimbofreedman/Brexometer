@@ -24,11 +24,11 @@ import './CollectionIntro.css';
 
   componentWillMount() {
     let { CollectionStore, match } = this.props
-    CollectionStore.getCollectionById(parseInt(match.params.collectionId))
+    CollectionStore.getCollectionById(parseInt(match.params.collectionId, 10))
       .then((collection) => {
         this.setState({collection: collection});
       })
-    this.props.CollectionStore.getCollectionItemsById(parseInt(match.params.collectionId))
+    this.props.CollectionStore.getCollectionItemsById(parseInt(match.params.collectionId, 10))
       .then((resolve) => { })
       .catch((error) => { this.setState({ networkError: true }) })
 
@@ -39,7 +39,7 @@ import './CollectionIntro.css';
   }
 
   startVoting = () => {
-    const collectionId = parseInt(this.props.match.params.collectionId);
+    const collectionId = parseInt(this.props.match.params.collectionId, 10);
     const url = `/survey/${collectionId}/flow/0/vote/`;
     this.dynamicConfig.addRedirect(url);
     const dynamicConfigStr = this.dynamicConfig.getEncodedConfig();
@@ -53,7 +53,7 @@ import './CollectionIntro.css';
 
   render() {
 
-    let collectionId = parseInt(this.props.match.params.collectionId);
+    let collectionId = parseInt(this.props.match.params.collectionId, 10);
     let { collection, networkError } = this.state;
 
     if(networkError) {

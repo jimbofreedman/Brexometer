@@ -51,10 +51,10 @@ class CollectionAdminGUI extends Component { // The view only for the collection
 
     if(this.state.showAddExistingQuestionDialog && this.state.existingQuestionDialogText.length > 1) {
       if(!isNaN(parseFloat(this.state.existingQuestionDialogText)) && isFinite(this.state.existingQuestionDialogText)) { // If numeric, check for question ID
-        if(this.props.QuestionStore.questions.has(parseInt(this.state.existingQuestionDialogText))) { // Is question exists in DB, render
-          this.existingQuestionDialogResults.replace([parseInt(this.state.existingQuestionDialogText)])
+        if(this.props.QuestionStore.questions.has(parseInt(this.state.existingQuestionDialogText, 10))) { // Is question exists in DB, render
+          this.existingQuestionDialogResults.replace([parseInt(this.state.existingQuestionDialogText, 10)])
         }else { // Otherwise load question and wait for rerender
-          this.props.QuestionStore.loadQuestion(parseInt(this.state.existingQuestionDialogText));
+          this.props.QuestionStore.loadQuestion(parseInt(this.state.existingQuestionDialogText, 10));
         }
       }else { // Not numeric, perform a text search
          this.props.QuestionStore.searchQuestions(this.state.existingQuestionDialogText).then(res => {

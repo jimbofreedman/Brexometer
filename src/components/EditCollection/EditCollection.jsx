@@ -25,7 +25,7 @@ import LinearProgress from 'material-ui/LinearProgress';
   }
 
   fillDetailsFromStore() {
-    let collectionId = parseInt(this.props.match.params.collectionId);
+    let collectionId = parseInt(this.props.match.params.collectionId, 10);
     let storeCollection = this.props.CollectionStore.collections.get(collectionId);
     this.setState({
       title: storeCollection.name,
