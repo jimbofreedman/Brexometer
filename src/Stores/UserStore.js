@@ -1,4 +1,4 @@
-import { observable, autorun, observe, computed, action } from 'mobx';
+import { observable, autorun, observe, computed } from 'mobx';
 import Cookies from 'cookies-js';
 import GeoService from '../services/GeoService'
 

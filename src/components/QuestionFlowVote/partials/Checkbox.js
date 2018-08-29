@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const Checkbox = ({selected, isHovered}) => {
   return (<div style={{float: 'left', position: 'relative', top: '2px'}}>

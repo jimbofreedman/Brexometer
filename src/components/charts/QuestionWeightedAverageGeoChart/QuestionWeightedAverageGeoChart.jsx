@@ -3,7 +3,7 @@ import { inject, observer } from "mobx-react";
 //import { observable, reaction } from "mobx";
 import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend, ResponsiveContainer, Text} from 'recharts';
 
-const mergeDataPoints = (a, b) => {
+const _mergeDataPoints = (a, b) => {
 
   if(!a) {
     return b;
@@ -94,7 +94,7 @@ export default @inject("DemographicsDataStore", "QuestionStore") @observer class
 
   render() {
 
-    let {DemographicsDataStore, QuestionStore, questionId, startAge = 0, endAge = 200, bucketSize = 1} = this.props;
+    let {DemographicsDataStore, QuestionStore, questionId} = this.props;
 
     let geoData = DemographicsDataStore.getWeightedQuestionAverageDataByGeo(questionId, 13, 30);
     let questionData = QuestionStore.getQuestionById(questionId);
@@ -231,12 +231,4 @@ const countryMap = {
   45691: "N. Ireland",
   45692: "Scotland",
   45693: "Wales",
-}
-
-const customTickMap = {
-  0.5: "Stongly disagree",
-  1.5: "Disagree",
-  2.5: "Neutral",
-  3.5: "Agree",
-  4.5: "Stongly agree",
 }

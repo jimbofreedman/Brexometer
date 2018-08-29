@@ -1,6 +1,6 @@
 import React from 'react';
 import { inject, observer } from "mobx-react";
-import { observable, reaction } from "mobx";
+import { observable } from "mobx";
 
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 //import { scaleTime } from 'd3-scale';
@@ -8,8 +8,6 @@ import LoadingIndicator from '../../LoadingIndicator';
 import QuestionService from "../../../services/QuestionService";
 
 const QuestionPopulationStackedChart = inject("CensusDataStore", "DemographicsDataStore", "QuestionStore")(({ CensusDataStore, DemographicsDataStore, QuestionStore, questionId, geoId, data, height = null}) => {
-  let certainityStatisticsArr = null;
-  let currentlyShowingIndex = null;
   let viewData = observable.shallowObject({
     values: null
   });
@@ -171,7 +169,6 @@ function getDemographicsMcqData(demogrData, choices) {
 
 //returns new array
 function setCensusChartData(values, censusData) {
-  let ages = ["<15", "15-25", "25-35", "35-45", "45-55", "55-65", "65-75", "75-85", "85+"];
   let resData = [];
 
   values.forEach((value) => {

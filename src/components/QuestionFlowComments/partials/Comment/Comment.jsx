@@ -77,7 +77,7 @@ class Comment extends Component {
   }
 
   render() {
-    const { RoutingStore, comment, UserStore, onDelete, onReport, question } = this.props
+    const { _RoutingStore, comment, UserStore, onDelete, onReport, question } = this.props
     const { question_info, id } = comment
 
     const shareUrl = `https://app.represent.me/question/${question_info.id}/${question.slug}/comment${id}/`;

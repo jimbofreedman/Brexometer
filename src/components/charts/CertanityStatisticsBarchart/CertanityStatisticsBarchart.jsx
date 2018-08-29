@@ -1,8 +1,8 @@
 import React from 'react';
 import { inject, observer } from "mobx-react";
-import { observable, reaction } from "mobx";
+import { observable } from "mobx";
 
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Rectangle, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Rectangle, ResponsiveContainer } from 'recharts';
 import LoadingIndicator from '../../LoadingIndicator';
 
 const CertanityStatisticsBarchart = inject("CensusDataStore", "DemographicsDataStore")(({ CensusDataStore, DemographicsDataStore, questionId, geoId}) => {
@@ -85,13 +85,12 @@ const CertanityStatisticsBarchartView = observer(({ data }) => {
 })
 
 const CustomizedLabel = (props) => {
-  const { x, y, stroke, text, width } = props;
+  const { x, y, text, width } = props;
   return <text x={x} y={y} dx={-width / 2 - 5} fill="white" fontSize={LABEL_FONT_SIZE} textAnchor="middle">{text}</text>
 };
 
 
 const CustomBar = (props) => {
-  const { payload, x, y, width, height } = props;
   return <Rectangle {... props}/>
 };
 
@@ -120,16 +119,12 @@ function generateChartValues(certainityStatistics) {
 
 let computeStatisticsData = (censusData, demogrData) => {
   var population = 712500000; //censusData[0].all_ages 
-  let showOnlyNotReached = false; //if false -> show all
   let reachedNumber = {
     total: null,
     male: null,
     female: null,
     decline: null
   };
-  let percentageOfWhoCanVote = null;
-  let isNoDataError = null;
-  let showingIndex = 0;
   let certainityStatistics = [{
       certainity: 99,
       confidenceInt: 30,
@@ -197,7 +192,6 @@ let computeStatisticsData = (censusData, demogrData) => {
   reachedNumber['male'] = answeredMaleSum;
   reachedNumber['female'] = answeredFemaleSum;
   reachedNumber['decline'] = answeredDiscurdSum;
-  percentageOfWhoCanVote = parseInt(canVoteSum * 100 / reachedNumber['total']);
 
   // calculate percantage of answered users
   let reachedCoef = 100 / reachedNumber['total'];

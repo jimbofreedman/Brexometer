@@ -103,7 +103,7 @@ class Results extends Component {
   }
 
   render() {
-    const { QuestionStore, questionId, collectionId, id} = this.props;
+    const {collectionId, id} = this.props;
     const url = `/survey/${collectionId}/flow/${id}/`;
     return (
       <div>

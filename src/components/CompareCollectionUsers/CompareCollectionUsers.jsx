@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { observer, inject } from "mobx-react";
-import { observable, extendObservable} from 'mobx';
-import { Link } from 'react-router-dom';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import { observable} from 'mobx';
+import {Card, CardHeader, CardText} from 'material-ui/Card';
 
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Rectangle, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 import LoadingIndicator from '../LoadingIndicator';
 
 import './style.css';
@@ -43,7 +42,7 @@ const CompareCollectionUsersView = observer(({data})=> {
 const UserCard = observer(({user, compareData}) => {
   let name = user.first_name ? user.first_name + ' ' + user.last_name : user.username;
   let location = (user.country_info ? user.country_info.name + (user.region_info ? ', ' : '') : '') + (user.region_info ? user.region_info.name : '');
-  let link = "https://app.represent.me/profile/" + user.id + "/" + user.username;
+//  let link = "https://app.represent.me/profile/" + user.id + "/" + user.username;
 
 //   return (<div className="user-card">
 //     <div className="photo"><a href={link} target="_blank"><img src={user.photo} /></a></div>
