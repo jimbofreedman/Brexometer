@@ -312,7 +312,7 @@ export default class Shell extends Component {
 
 
                   <Drawer
-                    open={this.breakpoints.sm && this.state.open || !!this.breakpoints.lg}
+                    open={(this.breakpoints.sm && this.state.open) || !!this.breakpoints.lg}
                     docked={!!this.breakpoints.lg}
                     width={256}
                     onRequestChange={(open) => this.setState({open})}
