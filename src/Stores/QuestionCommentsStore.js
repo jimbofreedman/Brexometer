@@ -1,6 +1,19 @@
 import { observable } from 'mobx';
 import Promise from 'promise';
 
+class QuestionComments {
+  page: 1
+  page_size: 7
+  comments = observable.shallowArray([])
+  constructor(comments = []) {
+    this.addComments(comments)
+  }
+
+  addComments(comments) {
+    this.comments.replace(this.comments.concat(comments));
+  }
+}
+
 class QuestionCommentsStore {
 
   questionToComments = observable({
@@ -68,19 +81,6 @@ class QuestionCommentsStore {
 
 }
 
-
-class QuestionComments {
-  page: 1
-  page_size: 7
-  comments = observable.shallowArray([])
-  constructor(comments = []) {
-    this.addComments(comments)
-  }
-
-  addComments(comments) {
-    this.comments.replace(this.comments.concat(comments));
-  }
-}
 
 // export default instance ? instance : instance = new QuestionCommentsStore();
 export default QuestionCommentsStore;
