@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-expressions */
+
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { observable, extendObservable, autorun } from 'mobx';
