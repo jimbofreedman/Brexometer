@@ -39,7 +39,7 @@ window.authSettings = {
 if(location.host.indexOf('staging') !== -1 || location.host.indexOf('localhost') !== -1) {
   window.authSettings.facebookId = 1828170307265923;
   window.API = axios.create({
-    baseURL: 'https://staging.represent.me'
+    baseURL: 'https://api.represent.me'
   });
 } else {
   window.authSettings.facebookId = 123 // FIXME;
