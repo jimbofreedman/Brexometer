@@ -151,7 +151,7 @@ const CollectionsList = inject("CollectionStore", "UserStore")(observer(({ Colle
   );
 }))
 
-const OgTags = ({}) => {
+const OgTags = () => {
   const og = {
     url: window.location.origin,
     title: "Let's build a better democracy",
