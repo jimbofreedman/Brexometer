@@ -116,4 +116,4 @@ class DynamicConfigService {
 
 }
 
-export default new DynamicConfigService;
+export default new DynamicConfigService();
