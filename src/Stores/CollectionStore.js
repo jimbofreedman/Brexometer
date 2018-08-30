@@ -18,7 +18,7 @@ class CollectionStore {
         }
       }.bind(this))
       .catch(function(error) {
-        console.log(error, error.response.data);
+        console.log(error, error.response && error.response.data);
       });
 
   }

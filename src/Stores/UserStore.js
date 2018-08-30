@@ -43,7 +43,9 @@ class UserStore {
     window.API.interceptors.response.use(function (response) { // On successful response
         return response;
       }, function (error) { // On error response
-        if(401 === error.response.status) { // Server returned 401
+        if (!error.response) {
+          console.log(error);
+        } else if(401 === error.response.status) { // Server returned 401
           console.log("Logging out");
           this.logout();
         }
