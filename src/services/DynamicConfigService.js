@@ -80,19 +80,19 @@ class DynamicConfigService {
 
     let parts = url.split("/");
     let last_part = parts[parts.length - 1];
-    let first_two_chars = last_part.substring(0, 2)
-    let updated_url = ""
+    let first_two_chars = last_part.substring(0, 2);
+    let updated_url = "";
 
     if(first_two_chars === "%7" || first_two_chars === "{\"") {
-      updated_url = "/"
-      parts.shift()
+      updated_url = "/";
+      parts.shift();
       parts.forEach((part, index) => {
         if(index !== parts.length-1) {
           updated_url += part + "/";
         }
       })
     }else {
-      updated_url = url
+      updated_url = url;
     }
 
     this.config.redirects[0] = updated_url
