@@ -91,8 +91,7 @@ class QuestionFlowShare extends Component {
     const fb = (
     <FacebookShareButton
       url={shareUrl}
-      title={shareText}
-      picture={imgSrc}
+      quote={shareText}
       className='fb-network__share-button'>
       <FacebookIcon
         size={32}

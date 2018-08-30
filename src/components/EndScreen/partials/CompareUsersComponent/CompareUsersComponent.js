@@ -296,9 +296,7 @@ class CompareCollectionUsers extends Component {
           <div className="shareLinksButtons">
             <FacebookShareButton
               url={`${window.location.origin}/survey/${this.props.collectionId}`}
-              title={`Represent helps you modernise democracy.`}
-              picture={`https://open.represent.me/img/wrW7xwp.png`}
-              description={`Compare the policies. Find your match. Make it work for you.`}
+              description={`Represent helps you modernise democracy.`}
               className='fb-network__share-button_group'>
               <FacebookIcon
                 size={30}
@@ -661,10 +659,8 @@ class UserCardSmall extends Component {
         </CardText>
         <FacebookShareButton
           url={`${window.location.origin}/survey/${collectionId}`}
-          title={`I'm a ${match}% match with ${name} - how about you?`}
-          picture={`https://share.represent.me/compare_users/compare_users_${UserStore.userData.get('id')}_${user.id}.png`}
+          quote={`I'm a ${match}% match with ${name} - how about you? BTW, this isn't just another party comparison / data sucking thing. It's a really cool new way of doing democracy and giving people a really clear voice. Think petitions, but .. done better :)`}
           className={`fb-network__share-button__end_${user.id}`}
-          description="BTW, this isn't just another party comparison / data sucking thing. It's a really cool new way of doing democracy and giving people a really clear voice. Think petitions, but .. done better :)"
           style={{ display: 'none' }}
         >
           <FacebookIcon

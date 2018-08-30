@@ -82,13 +82,11 @@ class Comment extends Component {
 
     const shareUrl = `https://app.represent.me/question/${question_info.id}/${question.slug}/comment${id}/`;
     const title = `${comment.user.first_name} ${comment.user.last_name} commented question`
-    const picture = question.ogImage || `https://share.represent.me/graphic/${question.id}.png`
 
     const fb = (
     <FacebookShareButton
       url={shareUrl}
-      title={title}
-      picture={picture}
+      quote={title}
       className={`fb-network__share-button${comment.id}`}>
       <FacebookIcon
         size={32}
