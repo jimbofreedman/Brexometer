@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { observer, inject } from "mobx-react";
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
@@ -214,9 +215,9 @@ let FormTextField = (props) => (
 )
 
 FormTextField.defaultProps = {
-  hintText: React.PropTypes.string.isRequired,
-  stateField: React.PropTypes.string.isRequired,
-  value: React.PropTypes.string.isRequired,
+  hintText: PropTypes.string.isRequired,
+  stateField: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
   autoFocus: true,
   type: 'text',
 }
