@@ -2,8 +2,8 @@ import React, {Component} from 'react'
 
 import { observer, inject } from "mobx-react";
 import './EmbedlyComponent.css'
-@observer
 @inject ("UrlPreviewStore")
+@observer
 class EmbedlyComponent extends Component {
 
   constructor() {

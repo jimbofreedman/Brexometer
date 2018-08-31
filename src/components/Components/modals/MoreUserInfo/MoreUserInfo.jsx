@@ -46,7 +46,7 @@ const styles = {
 
 
 
-export default @observer @inject("UserStore") class MoreUserInfo extends Component {
+export default @inject("UserStore") @observer class MoreUserInfo extends Component {
 
   constructor() {
     super();
