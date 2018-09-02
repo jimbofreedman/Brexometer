@@ -83,7 +83,7 @@ const CollectionsList = inject("CollectionStore", "UserStore")(observer(({ Colle
             <RaisedButton
               label="Start"
               primary
-              href="/survey/122/flow/0/vote/"
+              href="/survey/146/flow/0/vote/"
               style={{marginTop: 15}}
               />
 
