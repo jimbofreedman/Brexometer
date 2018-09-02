@@ -64,27 +64,39 @@ const CollectionsList = inject("CollectionStore", "UserStore")(observer(({ Colle
     </div>
  </div>}
 
+      <div>
+        <div className="imageContainer"
+             style={{
+               background: 'url(/img/montage.jpg)',
+               padding: '70px 0 90px 0'
+             }} >
+          <div className="contentBox">
 
+            <h1 style={{ maxWidth: '600px', display: '-webkit-inline-box' }}>
+              What kind of Brexit would suit me best?
+            </h1>
 
-        <div>
-           <div className="imageContainer"  style={{background: 'url(/img/montage.jpg)', padding: '70px 0 90px 0'}} >
-            <div className="contentBox">
+            <p>
+              Take a short quiz to find out whether your views on Brexit
+              match up with your opinions on various issues the country faces,
+              and also how your views match with various well-known MPs.
+            </p>
 
-                <h1 style={{ maxWidth: '600px', display: '-webkit-inline-box' }}>Who should I vote for?</h1>
+            <p>
+              You may be surprised by the results!
+            </p>
 
-                <p>Confused about which party to vote for on June 8th? Find out which party best matches your values.</p>
+            <RaisedButton
+              label="Start"
+              primary
+              href="/survey/122/flow/0/vote/"
+              style={{marginTop: 15}}
+              />
 
-                <RaisedButton label="Start" primary href="/survey/122/flow/0/vote/" style={{marginTop: 15}}/>
-
-              </div>
-            </div>
-
+          </div>
         </div>
 
-
-
-
-
+      </div>
 
       <div><CollectionSearch /></div>
       <div className='containerStyles'>
