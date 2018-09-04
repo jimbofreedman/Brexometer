@@ -18,7 +18,6 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import {List, ListItem} from 'material-ui/List';
 import Divider from 'material-ui/Divider';
-import Subheader from 'material-ui/Subheader';
 
 import CollectionsList from '../CollectionsList';
 import CollectionIntro from '../CollectionIntro';
@@ -55,17 +54,10 @@ import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 
 import AuthTokenComponent from '../AuthTokenComponent'
 
-
 import Drawer from 'material-ui/Drawer';
-
-
-
-
 import RemoveRedEye from 'material-ui/svg-icons/image/remove-red-eye';
 import Share from 'material-ui/svg-icons/social/share';
-import Important from 'material-ui/svg-icons/action/thumbs-up-down';
 import Close from 'material-ui/svg-icons/navigation/close';
-
 
 import './Shell.css';
 
@@ -326,33 +318,7 @@ export default class Shell extends Component {
                     <ListItem key='menuItem-2' primaryText="What's this?" leftIcon={<RemoveRedEye />} onTouchTap={() => this.toggleIntro()} />
                     <ListItem key='menuItem-3' primaryText="Share" leftIcon={<Share />} onTouchTap={this.clickFB} />
                     <Divider />
-                    <ListItem className='menuItem menuItem9' key='menuItem-4' primaryText="Who should I vote for?" leftIcon={<Important />}  href="/survey/146" />
-                    <Divider />
 
-                    <Subheader>COMPARE BY PARTY</Subheader>
-
-                    <ListItem className='menuItem' key='menuItem-6' primaryText="Conservatives"   href="/survey/119" />
-                    <ListItem className='menuItem' key='menuItem-7' primaryText="Green Party (E&W)" href="/survey/121" />
-                    <ListItem className='menuItem' key='menuItem-8' primaryText="Labour"  href="/survey/50" />
-                    <ListItem className='menuItem' key='menuItem-9' primaryText="Liberal Democrats"   href="/survey/116" />
-                    <ListItem className='menuItem' key='menuItem-10' primaryText="Plaid Cymru"  href="/survey/112" />
-                    <ListItem className='menuItem' key='menuItem-11' primaryText="SNP"   href="/survey/124" />
-                    <ListItem className='menuItem' key='menuItem-12' primaryText="UKIP"   href="/survey/130" />
-
-                    {/*<ListItem className='menuItem' key='menuItem-5' primaryText="All in one"  href="/survey/47" />*/}
-
-
-{/*                    <Divider />
-
-                    <ListItem key='menuItem-13'
-                      primaryText="Topics"
-                      initiallyOpen={false}
-                      primaryTogglesNestedList={true}
-                      nestedItems={[
-                        <ListItem className='menuItem' key='nestedItem-1' primaryText="Coming soon" disabled={true} />
-                        ]}
-                    /> */}
-                    <Divider />
                     <ListItem key='menuItem-14'
                       primaryText="About"
                       initiallyOpen={false}
