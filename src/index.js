@@ -31,9 +31,10 @@ ReactGA.initialize('UA-59994709-1', {
 
 
 window.authSettings = {
+  // https://www.facebook.com/pg/representlive
+  // for use by react-messenger-plugin
   facebookPageId: 1522822621304793,
-  //facebookId: 1499361770335561,
-  facebookId: 1499361770335561,
+
   googleMapsAPI: "AIzaSyDZxI6243Bb460yabWL_tyN97NBH6hsnwo",
 }
 if(location.host.indexOf('staging') !== -1 || location.host.indexOf('localhost') !== -1) {
@@ -47,12 +48,6 @@ if(location.host.indexOf('staging') !== -1 || location.host.indexOf('localhost')
     baseURL: 'https://api.represent.me'
   });
 }
-//   window.API = axios.create({
-//     baseURL: 'http://localhost:8000'
-//     //baseURL: 'http://api.represent.me'
-//   });
-//   window.authSettings.facebookId = 1665890767015993;
-
 
 window.stores = {
   UserStore:              new UserStore(),
