@@ -37,12 +37,12 @@ window.authSettings = {
   googleMapsAPI: "AIzaSyDZxI6243Bb460yabWL_tyN97NBH6hsnwo",
 }
 if(location.host.indexOf('staging') !== -1 || location.host.indexOf('localhost') !== -1) {
-  window.authSettings.facebookId = 1828170307265923;
+  window.authSettings.facebookId = 510916936048320;
   window.API = axios.create({
     baseURL: 'https://api.represent.me'
   });
 } else {
-  window.authSettings.facebookId = 123 // FIXME;
+  window.authSettings.facebookId = 290030998456052;
   window.API = axios.create({
     baseURL: 'https://api.represent.me'
   });
