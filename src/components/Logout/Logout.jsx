@@ -7,15 +7,11 @@ import { Redirect } from 'react-router'
 export default class Logout extends Component {
   componentDidMount() {
     const { UserStore, routing } = this.props;
-    console.log("===CDM");
-    console.log(UserStore.userData);
-    console.log(UserStore.userData.size);
-    console.log(UserStore.userData.get("id"));
     UserStore.logout();
-    //routing.push("/");
   }
 
   render() {
+    // Todo show a message telling the user they are logged out
     return <Redirect to="/" />
   }
 }

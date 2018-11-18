@@ -126,11 +126,7 @@ export default class Shell extends Component {
 
   isAuthenticated() {
     const { UserStore } = this.props;
-    console.log("===ISAUTHENTICATED")
-    console.log(UserStore.userData);
-    const result = UserStore && UserStore.isLoggedIn();
-    console.log("IsAuthenticated", result);
-    return result;
+    return UserStore && UserStore.isLoggedIn();
   }
 
   render() {

@@ -15,8 +15,7 @@ import DynamicConfigService from '../../services/DynamicConfigService';
 import './Login.css';
 import smallLogo from './represent_white_outline.svg';
 
-@inject("UserStore")
-@inject("routing")
+@inject("UserStore", "routing")
 @observer
 export default class Login extends Component {
 
@@ -50,14 +49,6 @@ export default class Login extends Component {
     if (UserStore.isLoggedIn()) {
       return <Redirect to={location.state && location.state.from ? location.state.from : "/"} />;
     }
-
-    console.log("======= LOGIN");
-    console.log("Location:");
-    console.log(location);
-    console.log("Location.state:");
-    console.log(location.state);
-    console.log("Location.state.from.pathname:");
-    console.log(location.state ? location.state.from.pathname : null);
 
     return (
       <div style={{height: '100%'}}>
@@ -138,8 +129,6 @@ export default class Login extends Component {
 
     UserStore.authLogin(this.state.email, this.state.password)
       .catch(((error) => {
-        console.log("AUTH LOGIN ERROR");
-        console.log(error);
         if (error.response.data.non_field_errors) {
           this.setState({ problems: ["Username / password combination not found! Please check your details and try again"] });
         } else if (error) {

@@ -43,35 +43,19 @@ class QuestionFlow extends Component {
   componentWillMount() {
     let { CollectionStore, match, routing } = this.props
 
-
-    console.log("Location:")
-    console.log(routing.location.pathname);
-    console.log("MatchParams:");
-    console.log(match.params);
-
-    console.log("getting collection ", parseInt(match.params.collectionId));
     CollectionStore.getCollectionById(parseInt(match.params.collectionId))
       .then((collection) => {
-        console.log("coll success");
-        console.log(collection);
         this.setState({collection})
       })
       .catch((error) => {
-        console.log("coll error");
-        console.log(error);
         this.setState({networkError: true})
       })
 
-    console.log("getting collection ", parseInt(match.params.collectionId));
     CollectionStore.getCollectionItemsById(parseInt(match.params.collectionId))
       .then((collectionItems) => {
-        console.log("items success");
-        console.log(collectionItems);
         this.setState({collectionItems})
       })
       .catch((error) => {
-        console.log("items error");
-        console.log(error);
         this.setState({networkError: true})
       })
 
@@ -96,19 +80,8 @@ class QuestionFlow extends Component {
     let orderNumber = parseInt(match.params.orderNumber);
 
     let item = collectionItems[orderNumber];
-    //
-    // console.log("=============== QUESTIONFLOW")
-    // console.log("Location:")
-    // console.log(routing.location.pathname);
-    // console.log("MatchParams:");
-    // console.log(match.params);
-    // console.log("CollectionItems:");
-    // console.log(collectionItems);
-    // console.log("Item:");
-    // console.log(item);
 
     if(!item) {
-      console.log("Skipping to end");
       this.navigateToEnd()
       return null;
     }

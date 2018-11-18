@@ -27,7 +27,9 @@ class UserStore {
     if (Cookies.enabled) { // Check if browser allows cookies and if so attempt auto-login
       let authToken = Cookies.get('representAuthToken'); // Check if cookie exists with authToken
       this.sessionData.set("authToken", authToken);
-      this.getMe();
+      this.getMe().catch((error) => {
+        console.log("Not logged in");
+      });
     }
 
     window.API.interceptors.response.use(function (response) { // On successful response
@@ -76,12 +78,9 @@ class UserStore {
       window.API.defaults.headers.common['Authorization'] = "Token " + authToken;
       this.getMe()
         .then((response) => {
-          console.log("Getme response:")
-          console.log(response);
           resolve(response)
         })
         .catch((error) => {
-          console.log(error);
           reject(error)
         })
     });

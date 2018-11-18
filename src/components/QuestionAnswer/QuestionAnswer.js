@@ -76,25 +76,11 @@ class QuestionAnswer extends Component {
     let orderNumber = parseInt(match.params.orderNumber);
     let choiceId = parseInt(match.params.choiceId);
 
-    console.log(match.params);
-    console.log(collectionItems);
-
     CollectionStore.getCollectionItemsById(collectionId)
       .then((collectionItems) => {
         let item = collectionItems[orderNumber];
 
-        console.log("=============== QUESTIONANSWER")
-        console.log("Location:")
-        console.log(routing.location.pathname);
-        console.log("MatchParams:");
-        console.log(match.params);
-        console.log("CollectionItems:");
-        console.log(collectionItems);
-        console.log("Item:");
-        console.log(item);
-
         if(!item) {
-          console.log("Skipping to end");
           this.navigateToEnd();
           return;
         }
@@ -108,10 +94,8 @@ class QuestionAnswer extends Component {
         }
 
         if( orderNumber < collectionItems.length - 1 ) { // If there is a next question
-          console.log("Going to next");
           this.navigateToNextItem()
         }else {
-          console.log("Going to end");
           this.navigateToEnd()
         }
       })
