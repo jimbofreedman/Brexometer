@@ -34,6 +34,7 @@ import QuestionLiquidDisplay from '../charts/QuestionLiquidPiechart/QuestionLiqu
 import CollectionCharts from '../charts/CollectionCharts';
 import Links from '../navComponent';
 import DynamicConfigService from '../../services/DynamicConfigService';
+import DevTools, { setLogEnabled } from 'mobx-react-devtools';
 
 import CandidateIntro from '../CandidateIntro';
 import CandidateNew from '../CandidateNew';
@@ -226,6 +227,7 @@ function getDynamicConfig(url) {
                   <TextField value={this.props.UserStore.userData.get("first_name")} fullWidth={true} id="firstname"/>
                   <TextField value={this.props.UserStore.userData.get("last_name")} fullWidth={true} id="lastname"/>
                 </Dialog>
+                <DevTools />
               </div>
           </MuiThemeProvider>
       </Router>
