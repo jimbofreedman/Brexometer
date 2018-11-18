@@ -61,7 +61,7 @@ export default class Login extends Component {
                   this.attemptLogin();
                 }}
               >
-                <TextField hintText="Username / email" git comstyle={{width: '100%'}} value={this.state.email} onChange={(e, newValue) => this.setState({email: newValue})}/><br />
+                <TextField hintText="Username / email" style={{width: '100%'}} value={this.state.email} onChange={(e, newValue) => this.setState({email: newValue})}/><br />
                 <TextField hintText="Password" type="password" style={{width: '100%'}} value={this.state.password} onChange={(e, newValue) => this.setState({password: newValue})}/><br />
                 <FlatButton
                   type="submit"
