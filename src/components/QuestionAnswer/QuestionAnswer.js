@@ -82,16 +82,16 @@ class QuestionAnswer extends Component {
     CollectionStore.getCollectionItemsById(collectionId)
       .then((collectionItems) => {
         let item = collectionItems[orderNumber];
-        //
-        // console.log("=============== QUESTIONANSWER")
-        // console.log("Location:")
-        // console.log(routing.location.pathname);
-        // console.log("MatchParams:");
-        // console.log(match.params);
-        // console.log("CollectionItems:");
-        // console.log(collectionItems);
-        // console.log("Item:");
-        // console.log(item);
+
+        console.log("=============== QUESTIONANSWER")
+        console.log("Location:")
+        console.log(routing.location.pathname);
+        console.log("MatchParams:");
+        console.log(match.params);
+        console.log("CollectionItems:");
+        console.log(collectionItems);
+        console.log("Item:");
+        console.log(item);
 
         if(!item) {
           console.log("Skipping to end");

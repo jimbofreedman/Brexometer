@@ -23,6 +23,7 @@ import EditCollection from '../EditCollection';
 import QuestionFlow from '../QuestionFlow';
 import CreateCollection from '../CreateCollection';
 import Login from '../Login';
+import Logout from '../Logout';
 import Register from '../Register';
 import JoinGroup from '../JoinGroup';
 import Join from '../Join';
@@ -169,6 +170,7 @@ export default class Shell extends Component {
                     <Route exact path="/login/:dynamicConfig?" component={Login}/>
                     <Route exact path="/authcode/:code/:email/:redirect" component={AuthCode}/>
                     <Route exact path="/login/:dynamicConfig/:email" component={Login}/>
+                    <Route exact path="/logout/" component={Logout}/>
                     <Route exact path="/register" component={Register}/>
                     <Route exact path="/register/:redirect" component={Register}/>
                     <Route exact path="/join/:dynamicConfig?" component={Join}/>

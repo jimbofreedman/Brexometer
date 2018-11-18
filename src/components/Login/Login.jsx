@@ -8,7 +8,7 @@ import { grey100 } from 'material-ui/styles/colors';
 import Dialog from 'material-ui/Dialog';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import DynamicConfigService from '../../services/DynamicConfigService';
 
@@ -43,26 +43,21 @@ export default class Login extends Component {
     }
   }
 
-  componentWillUpdate() {
-    if(this.props.UserStore.userData.has("id")) { // If user is logged in, redirect
-      if(this.props.match.params.redirect) {
-        this.props.history.push(this.dynamicConfig.getNextRedirect());
-      }else {
-        this.props.history.push("/");
-      }
-    }
-  }
-
   render() {
-    const { history, push, goBack, location } = this.props.routing;
+    const { UserStore, routing } = this.props;
+    const { history, push, goBack, location } = routing;
+
+    if (UserStore.isLoggedIn()) {
+      return <Redirect to={location.state.from} />;
+    }
 
     console.log("======= LOGIN");
     console.log("Location:");
     console.log(location);
     console.log("Location.state:");
     console.log(location.state);
-    console.log("Location.state.from:");
-    console.log(location.state.from);
+    console.log("Location.state.from.pathname:");
+    console.log(location.state ? location.state.from.pathname : null);
 
     return (
       <div style={{height: '100%'}}>
@@ -133,24 +128,27 @@ export default class Login extends Component {
   }
 
   attemptLogin() {
-    const { Userstore, routing } = this.props;
-    console.log(routing);
-    this.props.UserStore.authLogin(this.state.email, this.state.password).catch(function(error) {
+    const { UserStore, routing } = this.props;
+
+
+    console.log("======= ATTEMPTLOGIN");
+    console.log("Location:");
+    console.log(routing.location);
+    console.log("Location.state:");
+    console.log(routing.location.state);
+    console.log("Location.state.from.pathname:");
+    console.log(routing.location.state.from.pathname);
+
+    UserStore.authLogin(this.state.email, this.state.password)
+      .catch(((error) => {
+        console.log("AUTH LOGIN ERROR");
+        console.log(error);
         if (error.response.data.non_field_errors) {
-          this.setState({problems: ["Username / password combination not found! Please check your details and try again"]});
-        }else if (error) {
-          this.setState({problems: JSON.stringify(error.response.data).replace(/:/g,": ").replace(/[&\/\\#+()$~%.'"*?<>{}\[\]]/g, "").split(",")});
-        } else {
-          routing.push(routing.location.state.postLoginRedirect)
+          this.setState({ problems: ["Username / password combination not found! Please check your details and try again"] });
+        } else if (error) {
+          this.setState({ problems: JSON.stringify(error.response.data).replace(/:/g, ": ").replace(/[&\/\\#+()$~%.'"*?<>{}\[\]]/g, "").split(",") });
         }
-
-    }.bind(this));
-  }
-
-  emailCallback(error, result) {
-    console.log("======= EMAIL CALLBACK");
-    console.log(error);
-    console.log(result);
+      }).bind(this));
   }
 
   facebookCallback(result) {

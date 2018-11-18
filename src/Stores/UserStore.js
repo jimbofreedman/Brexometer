@@ -27,10 +27,7 @@ class UserStore {
     if (Cookies.enabled) { // Check if browser allows cookies and if so attempt auto-login
       let authToken = Cookies.get('representAuthToken'); // Check if cookie exists with authToken
       this.sessionData.set("authToken", authToken);
-      this.getMe(
-        () => { console.log("Logged in"); },
-        () => { console.log("Not logged in"); }
-      );
+      this.getMe();
     }
 
     window.API.interceptors.response.use(function (response) { // On successful response
@@ -43,9 +40,11 @@ class UserStore {
         return Promise.reject(error);
       }.bind(this));
 
+    this.logout = this.logout.bind(this);
+    this.onAuthLoginSuccess = this.onAuthLoginSuccess.bind(this);
   }
 
-  getMe(resolve, reject) {
+  getMe() {
     console.log("===== GET ME")
     return new Promise((resolve, reject) => {
       if(!this.sessionData.get("authToken")) {
@@ -103,11 +102,13 @@ class UserStore {
 
   authLogin(username, password) {
     return window.API.post('/auth/login/', { username, password })
-      .then(function (response) {
-        if(response.data.auth_token) {
-          this.setupAuthToken(response.data.auth_token);
-        }
-      }.bind(this));
+      .then(this.onAuthLoginSuccess);
+  }
+
+  onAuthLoginSuccess(response) {
+    if(response.data.auth_token) {
+      this.setupAuthToken(response.data.auth_token);
+    }
   }
 
   toggleUserDialog() {
@@ -141,15 +142,27 @@ class UserStore {
 
   logout() {
     console.log("======== LOGGING OUT")
+    console.log("Userdata is now:")
+    console.log(this.userData);
+    console.log(this.userData.size);
+    console.log(this.userData.get("id"));
+    console.log("Performing logout...")
     Cookies.expire("representAuthToken");
     this.sessionData.set("authToken", "");
-    this.userData.replace({});
+    this.userData.clear();
     this.sessionData.set("showUserDialogue", false);
-    location.reload();
+    //location.reload();
+    console.log("Userdata is now:")
+    console.log(this.userData);
+    console.log(this.userData.size);
+    console.log(this.userData.get("id"));
   }
 
   isLoggedIn() {
-    return this.userData.has("id");
+    console.log("==== ISLOGGEDIN");
+    const ret = this.userData.get('id');
+    console.log(ret);
+    return ret;
   }
 
   compareUsers(userAId, userBId) {
