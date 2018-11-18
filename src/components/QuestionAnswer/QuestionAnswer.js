@@ -1,36 +1,14 @@
 import React, { Component } from 'react';
 import { observer, inject } from "mobx-react";
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import { Link } from 'react-router-dom';
-import Tappable from 'react-tappable';
-import $ from 'jquery';
 import LoadingIndicator from '../LoadingIndicator';
-
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
-import Slider from 'material-ui/Slider';
-import LinearProgress from 'material-ui/LinearProgress';
-import { white, cyan600, grey300 } from 'material-ui/styles/colors';
-import ReactMarkdown from 'react-markdown';
-import Dialog from 'material-ui/Dialog';
-import Paper from 'material-ui/Paper';
-
 import ErrorReload from '../ErrorReload';
-import DynamicConfigService from '../../services/DynamicConfigService';
-
-
-//let QuestionFlow = inject("CollectionStore", "QuestionStore", "UserStore")(observer(({ history, UserStore, CollectionStore, QuestionStore, match }) => {
-
-const monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
 
 @inject("CollectionStore", "QuestionStore", "UserStore", "routing")
 @observer
 class QuestionAnswer extends Component {
 
   constructor() {
-    super()
+    super();
     this.state = {
       collection: null,
       collectionItems: null,
@@ -39,38 +17,33 @@ class QuestionAnswer extends Component {
   }
 
   componentWillMount() {
-    let { CollectionStore, match } = this.props
+    let { CollectionStore, match } = this.props;
     CollectionStore.getCollectionById(parseInt(match.params.collectionId))
       .then((collection) => {
-        this.setState({collection})
+        this.setState({collection});
       })
-      .catch((error) => {
-        this.setState({networkError: true})
-      })
+      .catch(() => {
+        this.setState({networkError: true});
+      });
 
     CollectionStore.getCollectionItemsById(parseInt(match.params.collectionId))
       .then((collectionItems) => {
         this.setState({collectionItems})
       })
-      .catch((error) => {
-        this.setState({networkError: true})
-      })
-
-    this.dynamicConfig = DynamicConfigService;
-    if(this.props.match.params.dynamicConfig) {
-      this.dynamicConfig.setConfigFromRaw(this.props.match.params.dynamicConfig)
-    }
+      .catch(() => {
+        this.setState({networkError: true});
+      });
   }
 
   componentDidMount() {
-    let { history, UserStore, CollectionStore, QuestionStore, match, routing } = this.props;
+    let { CollectionStore, QuestionStore, match } = this.props;
     let { collection, collectionItems, networkError } = this.state;
 
-    // if(networkError) {
-    //   return <ErrorReload message="We couldn't load this collection!"/>
-    // }else if(!collection || collectionItems === null) {
-    //   return <LoadingIndicator/>
-    // }
+    if ( networkError ) {
+      return <ErrorReload message="We couldn't load this collection!"/>;
+    } else if (!collection || collectionItems === null) {
+      return <LoadingIndicator/>;
+    }
 
     let collectionId = parseInt(match.params.collectionId);
     let orderNumber = parseInt(match.params.orderNumber);
@@ -80,26 +53,28 @@ class QuestionAnswer extends Component {
       .then((collectionItems) => {
         let item = collectionItems[orderNumber];
 
-        if(!item) {
+        // Escape if this question somehow doesn't exist
+        if (!item) {
           this.navigateToEnd();
           return;
         }
 
         let question = QuestionStore.questions.get(item.object_id);
 
-        if(question.subtype === 'likert') {
+        if (question.subtype === 'likert') {
           QuestionStore.voteQuestionLikert(item.object_id, choiceId, collectionId);
-        }else if(question.subtype === 'mcq') {
+        } else if (question.subtype === 'mcq') {
           QuestionStore.voteQuestionMCQ(item.object_id, choiceId, collectionId);
         }
 
-        if( orderNumber < collectionItems.length - 1 ) { // If there is a next question
+        // Navigate to next question if it exists, otherwise the end
+        if (orderNumber < collectionItems.length - 1) {
           this.navigateToNextItem()
         }else {
           this.navigateToEnd()
         }
       })
-      .catch((error) => {
+      .catch(() => {
         this.setState({networkError: true})
       });
   }
@@ -111,11 +86,6 @@ class QuestionAnswer extends Component {
   navigateToNextItem() {
     let currentItem = parseInt(this.props.match.params.orderNumber);
     this.navigateToItem(currentItem + 1);
-  }
-
-  navigateToPreviousItem() {
-    let currentItem = parseInt(this.props.match.params.orderNumber);
-    this.navigateToItem(currentItem - 1);
   }
 
   navigateToEnd() {
