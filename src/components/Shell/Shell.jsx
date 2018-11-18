@@ -108,8 +108,8 @@ const ProtectedRoute = ({ component: Component, isAuthenticated: isAuthenticated
     isAuthenticated()
       ? <Component {...props} />
       : <Redirect to={{
-        pathname: '/login',
-        state: { from: props.location }
+          pathname: '/login',
+          state: { from: props.location }
       }} />
   )} />
 );
@@ -124,7 +124,7 @@ export default class Shell extends Component {
 
   isAuthenticated() {
     const { UserStore } = this.props;
-    const result = UserStore && UserStore.userData && UserStore.userData.has('id');
+    const result = UserStore && UserStore.isLoggedIn();
     console.log("IsAuthenticated", result);
     return result;
   }

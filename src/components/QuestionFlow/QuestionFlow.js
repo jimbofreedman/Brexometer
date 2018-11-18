@@ -96,16 +96,16 @@ class QuestionFlow extends Component {
     let orderNumber = parseInt(match.params.orderNumber);
 
     let item = collectionItems[orderNumber];
-
-    console.log("=============== QUESTIONFLOW")
-    console.log("Location:")
-    console.log(routing.location.pathname);
-    console.log("MatchParams:");
-    console.log(match.params);
-    console.log("CollectionItems:");
-    console.log(collectionItems);
-    console.log("Item:");
-    console.log(item);
+    //
+    // console.log("=============== QUESTIONFLOW")
+    // console.log("Location:")
+    // console.log(routing.location.pathname);
+    // console.log("MatchParams:");
+    // console.log(match.params);
+    // console.log("CollectionItems:");
+    // console.log(collectionItems);
+    // console.log("Item:");
+    // console.log(item);
 
     if(!item) {
       console.log("Skipping to end");

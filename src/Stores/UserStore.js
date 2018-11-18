@@ -27,7 +27,10 @@ class UserStore {
     if (Cookies.enabled) { // Check if browser allows cookies and if so attempt auto-login
       let authToken = Cookies.get('representAuthToken'); // Check if cookie exists with authToken
       this.sessionData.set("authToken", authToken);
-      this.getMe();
+      this.getMe(
+        () => { console.log("Logged in"); },
+        () => { console.log("Not logged in"); }
+      );
     }
 
     window.API.interceptors.response.use(function (response) { // On successful response
@@ -42,18 +45,24 @@ class UserStore {
 
   }
 
-  getMe() {
+  getMe(resolve, reject) {
+    console.log("===== GET ME")
     return new Promise((resolve, reject) => {
       if(!this.sessionData.get("authToken")) {
+        console.log("No auth token");
         reject("No auth token");
       }
 
       window.API.get('/auth/me/')
         .then((response) => {
+          console.log("SUCCESS");
+          console.log(response);
           this.userData.replace(response.data);
           resolve(response.data);
         })
         .catch((error) => {
+          console.log("FAILURE");
+          console.log(error);
           reject(error)
         })
     });
@@ -61,15 +70,19 @@ class UserStore {
   }
 
   setupAuthToken(authToken) {
+    console.log("=============== setupAuthToken")
     return new Promise((resolve, reject) => {
       this.sessionData.set("authToken", authToken);
       Cookies.set("representAuthToken", authToken, { expires: Infinity });
       window.API.defaults.headers.common['Authorization'] = "Token " + authToken;
       this.getMe()
         .then((response) => {
+          console.log("Getme response:")
+          console.log(response);
           resolve(response)
         })
         .catch((error) => {
+          console.log(error);
           reject(error)
         })
     });
@@ -127,6 +140,7 @@ class UserStore {
 
 
   logout() {
+    console.log("======== LOGGING OUT")
     Cookies.expire("representAuthToken");
     this.sessionData.set("authToken", "");
     this.userData.replace({});

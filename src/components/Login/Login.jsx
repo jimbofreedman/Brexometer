@@ -54,7 +54,15 @@ export default class Login extends Component {
   }
 
   render() {
-    const { history, push, goBack } = this.props.routing;
+    const { history, push, goBack, location } = this.props.routing;
+
+    console.log("======= LOGIN");
+    console.log("Location:");
+    console.log(location);
+    console.log("Location.state:");
+    console.log(location.state);
+    console.log("Location.state.from:");
+    console.log(location.state.from);
 
     return (
       <div style={{height: '100%'}}>
@@ -64,7 +72,12 @@ export default class Login extends Component {
               <p style={{fontWeight: 'bold', margin: '10px 0'}}><img src={smallLogo} style={{height: '30px', verticalAlign: 'middle', marginRight: '10px', marginTop: '-4px'}} />Please login to continue</p>
               <TextField hintText="Username / email" style={{width: '100%'}} value={this.state.email} onChange={(e, newValue) => this.setState({email: newValue})}/><br />
               <TextField hintText="Password" type="password" style={{width: '100%'}} value={this.state.password} onChange={(e, newValue) => this.setState({password: newValue})}/><br />
-              <FlatButton label="login" style={{width: '100%', marginBottom: '5px'}} backgroundColor={grey100} secondary onClick={this.attemptLogin} />
+              <FlatButton
+                label="login"
+                style={{width: '100%', marginBottom: '5px'}}
+                backgroundColor={grey100} secondary
+                onClick={this.attemptLogin}
+              />
 
               <FacebookLogin
                 cssClass="custom-facebook-login-button"
@@ -120,13 +133,24 @@ export default class Login extends Component {
   }
 
   attemptLogin() {
+    const { Userstore, routing } = this.props;
+    console.log(routing);
     this.props.UserStore.authLogin(this.state.email, this.state.password).catch(function(error) {
-      if(error.response.data.non_field_errors) {
-        this.setState({problems: ["Username / password combination not found! Please check your details and try again"]});
-      }else {
-        this.setState({problems: JSON.stringify(error.response.data).replace(/:/g,": ").replace(/[&\/\\#+()$~%.'"*?<>{}\[\]]/g, "").split(",")});
-      }
+        if (error.response.data.non_field_errors) {
+          this.setState({problems: ["Username / password combination not found! Please check your details and try again"]});
+        }else if (error) {
+          this.setState({problems: JSON.stringify(error.response.data).replace(/:/g,": ").replace(/[&\/\\#+()$~%.'"*?<>{}\[\]]/g, "").split(",")});
+        } else {
+          routing.push(routing.location.state.postLoginRedirect)
+        }
+
     }.bind(this));
+  }
+
+  emailCallback(error, result) {
+    console.log("======= EMAIL CALLBACK");
+    console.log(error);
+    console.log(result);
   }
 
   facebookCallback(result) {
