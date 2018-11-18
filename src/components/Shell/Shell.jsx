@@ -38,6 +38,7 @@ import DevTools, { setLogEnabled } from 'mobx-react-devtools';
 
 import CandidateIntro from '../CandidateIntro';
 import CandidateNew from '../CandidateNew';
+import QuestionAnswer from '../QuestionAnswer';
 
 import smallLogo from './represent_white_outline.svg';
 
@@ -102,10 +103,33 @@ function getDynamicConfig(url) {
 }
 
 
-@inject("UserStore") @observer export default class Shell extends Component {
+const ProtectedRoute = ({ component: Component, isAuthenticated: isAuthenticated, ...rest }) => (
+  <Route {...rest} render={(props) => (
+    isAuthenticated()
+      ? <Component {...props} />
+      : <Redirect to={{
+        pathname: '/login',
+        state: { from: props.location }
+      }} />
+  )} />
+);
+
+@inject("UserStore")
+@observer
+export default class Shell extends Component {
+  constructor(props) {
+    super(props);
+    this.isAuthenticated = this.isAuthenticated.bind(this);
+  }
+
+  isAuthenticated() {
+    const { UserStore } = this.props;
+    const result = UserStore && UserStore.userData && UserStore.userData.has('id');
+    console.log("IsAuthenticated", result);
+    return result;
+  }
 
   render() {
-
     let raw_config = getDynamicConfig(this.props.history.location.pathname);
     this.dynamicConfig = DynamicConfigService;
     if(raw_config) {
@@ -154,6 +178,12 @@ function getDynamicConfig(url) {
                     <Route exact path="/survey/:collectionId/:dynamicConfig?" component={CollectionIntro}/>
                     <Route exact path="/survey/:collectionId/edit" component={EditCollection}/>
                     <Route exact path="/survey/:collectionId/flow/:orderNumber/:dynamicConfig?" component={QuestionFlow}/>
+                    <ProtectedRoute
+                      exact
+                      path="/survey/:collectionId/flow/:orderNumber/answer/:choiceId/:dynamicConfig?"
+                      component={QuestionAnswer}
+                      isAuthenticated={this.isAuthenticated}
+                    />
                     <Route exact path="/survey/:collectionId/end/:dynamicConfig?" component={CollectionEnd}/>
                     <Route exact path="/test" component={Test}/>
                     <Route exact path="/undividedrender/:questionId" component={UndividedRender}/>
