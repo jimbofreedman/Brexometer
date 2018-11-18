@@ -47,7 +47,6 @@ class UserStore {
   }
 
   getMe() {
-    console.log("===== GET ME")
     return new Promise((resolve, reject) => {
       if(!this.sessionData.get("authToken")) {
         console.log("No auth token");
@@ -56,14 +55,10 @@ class UserStore {
 
       window.API.get('/auth/me/')
         .then((response) => {
-          console.log("SUCCESS");
-          console.log(response);
           this.userData.replace(response.data);
           resolve(response.data);
         })
         .catch((error) => {
-          console.log("FAILURE");
-          console.log(error);
           reject(error)
         })
     });
@@ -71,7 +66,6 @@ class UserStore {
   }
 
   setupAuthToken(authToken) {
-    console.log("=============== setupAuthToken")
     return new Promise((resolve, reject) => {
       this.sessionData.set("authToken", authToken);
       Cookies.set("representAuthToken", authToken, { expires: Infinity });
@@ -140,28 +134,14 @@ class UserStore {
 
 
   logout() {
-    console.log("======== LOGGING OUT")
-    console.log("Userdata is now:")
-    console.log(this.userData);
-    console.log(this.userData.size);
-    console.log(this.userData.get("id"));
-    console.log("Performing logout...")
     Cookies.expire("representAuthToken");
     this.sessionData.set("authToken", "");
     this.userData.clear();
     this.sessionData.set("showUserDialogue", false);
-    //location.reload();
-    console.log("Userdata is now:")
-    console.log(this.userData);
-    console.log(this.userData.size);
-    console.log(this.userData.get("id"));
   }
 
   isLoggedIn() {
-    console.log("==== ISLOGGEDIN");
-    const ret = this.userData.get('id');
-    console.log(ret);
-    return ret;
+    return this.userData.get('id');
   }
 
   compareUsers(userAId, userBId) {
