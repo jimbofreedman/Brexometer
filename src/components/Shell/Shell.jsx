@@ -36,6 +36,7 @@ import CollectionCharts from '../charts/CollectionCharts';
 import Links from '../navComponent';
 import DynamicConfigService from '../../services/DynamicConfigService';
 import DevTools, { setLogEnabled } from 'mobx-react-devtools';
+import { Link } from 'react-router-dom';
 
 import CandidateIntro from '../CandidateIntro';
 import CandidateNew from '../CandidateNew';
@@ -125,6 +126,8 @@ export default class Shell extends Component {
 
   isAuthenticated() {
     const { UserStore } = this.props;
+    console.log("===ISAUTHENTICATED")
+    console.log(UserStore.userData);
     const result = UserStore && UserStore.isLoggedIn();
     console.log("IsAuthenticated", result);
     return result;
@@ -158,6 +161,7 @@ export default class Shell extends Component {
       <Router history={this.props.history}>
           <MuiThemeProvider muiTheme={muiTheme}>
             <div style={{height: '100%', position: 'absolute', width: '100%', top: 0, left: 0, overflow: 'hidden'}}>
+              <Link to="/Logout">Logout</Link>
               <div style={mainContentStyle}>
                 <Scrollbars autoHide>
                   <ReactCSSTransitionGroup
