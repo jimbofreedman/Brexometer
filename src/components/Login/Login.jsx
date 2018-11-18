@@ -48,7 +48,7 @@ export default class Login extends Component {
     const { history, push, goBack, location } = routing;
 
     if (UserStore.isLoggedIn()) {
-      return <Redirect to={location.state.from} />;
+      return <Redirect to={location.state && location.state.from ? location.state.from : "/"} />;
     }
 
     console.log("======= LOGIN");
@@ -65,15 +65,21 @@ export default class Login extends Component {
           <div style={{ display: 'table-cell', verticalAlign: 'middle', textAlign: 'center', padding: '10px 20px' }}>
             <Paper zDepth={1} style={{padding: '10px 20px', maxWidth: '320px', marginLeft: 'auto', marginRight: 'auto'}}>
               <p style={{fontWeight: 'bold', margin: '10px 0'}}><img src={smallLogo} style={{height: '30px', verticalAlign: 'middle', marginRight: '10px', marginTop: '-4px'}} />Please login to continue</p>
-              <TextField hintText="Username / email" style={{width: '100%'}} value={this.state.email} onChange={(e, newValue) => this.setState({email: newValue})}/><br />
-              <TextField hintText="Password" type="password" style={{width: '100%'}} value={this.state.password} onChange={(e, newValue) => this.setState({password: newValue})}/><br />
-              <FlatButton
-                label="login"
-                style={{width: '100%', marginBottom: '5px'}}
-                backgroundColor={grey100} secondary
-                onClick={this.attemptLogin}
-              />
-
+              <form onSubmit={(e) => {
+                  e.preventDefault();
+                  this.attemptLogin();
+                }}
+              >
+                <TextField hintText="Username / email" git comstyle={{width: '100%'}} value={this.state.email} onChange={(e, newValue) => this.setState({email: newValue})}/><br />
+                <TextField hintText="Password" type="password" style={{width: '100%'}} value={this.state.password} onChange={(e, newValue) => this.setState({password: newValue})}/><br />
+                <FlatButton
+                  type="submit"
+                  label="login"
+                  style={{width: '100%', marginBottom: '5px'}}
+                  backgroundColor={grey100} secondary
+                  onClick={this.attemptLogin}
+                />
+              </form>
               <FacebookLogin
                 cssClass="custom-facebook-login-button"
                 appId={String(window.authSettings.facebookId)}
@@ -129,15 +135,6 @@ export default class Login extends Component {
 
   attemptLogin() {
     const { UserStore, routing } = this.props;
-
-
-    console.log("======= ATTEMPTLOGIN");
-    console.log("Location:");
-    console.log(routing.location);
-    console.log("Location.state:");
-    console.log(routing.location.state);
-    console.log("Location.state.from.pathname:");
-    console.log(routing.location.state.from.pathname);
 
     UserStore.authLogin(this.state.email, this.state.password)
       .catch(((error) => {
