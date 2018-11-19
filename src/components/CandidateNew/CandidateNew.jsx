@@ -1,40 +1,60 @@
-import React, { Component } from 'react'
-import { observer, inject } from "mobx-react"
+import React, { Component } from 'react';
+import { observer, inject } from 'mobx-react';
 import RaisedButton from 'material-ui/RaisedButton';
-import Formsy from 'formsy-react'
+import Formsy from 'formsy-react';
 import FormsyText from 'formsy-material-ui/lib/FormsyText';
 import FormsyDate from 'formsy-material-ui/lib/FormsyDate';
 
 import logo from './represent_white_outline.svg';
 
-@inject("UserStore") @observer class CandidateNew extends Component {
-
+@inject('UserStore')
+@observer
+class CandidateNew extends Component {
   constructor() {
-    super()
+    super();
 
     this.state = {
       canSubmitA: false,
-    }
+    };
   }
 
   componentWillMount() {
-    this.email = decodeURIComponent(this.props.match.params.email)
+    this.email = decodeURIComponent(this.props.match.params.email);
   }
 
   render() {
     return (
       <div style={{ display: 'table', width: '100%', height: '100%' }}>
-        <div className="FlowTransition" style={{ display: 'table-cell', verticalAlign: 'middle', textAlign: 'center', width: '100%' }}>
-          <div style={{ width: '300px', display: 'inline-block', margin: '20px 0' }}>
-            <img src={logo} style={{width: '100px'}} /><br/>
-            <Formsy.Form onValidSubmit={this.onSubmitA} onValid={() => this.toggleSubmitA(true)} onInvalid={() => this.toggleSubmitA(false)}>
+        <div
+          className="FlowTransition"
+          style={{
+            display: 'table-cell',
+            verticalAlign: 'middle',
+            textAlign: 'center',
+            width: '100%',
+          }}
+        >
+          <div
+            style={{
+              width: '300px',
+              display: 'inline-block',
+              margin: '20px 0',
+            }}
+          >
+            <img src={logo} style={{ width: '100px' }} />
+            <br />
+            <Formsy.Form
+              onValidSubmit={this.onSubmitA}
+              onValid={() => this.toggleSubmitA(true)}
+              onInvalid={() => this.toggleSubmitA(false)}
+            >
               <FormsyText
                 name="first_name"
                 validations="isWords"
                 required
                 hintText="What is your first name?"
                 floatingLabelText="First Name"
-                fullWidth={true}
+                fullWidth
               />
               <FormsyText
                 name="last_name"
@@ -42,7 +62,7 @@ import logo from './represent_white_outline.svg';
                 required
                 hintText="What is your last name?"
                 floatingLabelText="Last Name"
-                fullWidth={true}
+                fullWidth
               />
               <FormsyText
                 value={this.email}
@@ -51,7 +71,7 @@ import logo from './represent_white_outline.svg';
                 required
                 hintText="What is your email address?"
                 floatingLabelText="Email Address"
-                fullWidth={true}
+                fullWidth
               />
               <FormsyText
                 name="postcode"
@@ -59,29 +79,31 @@ import logo from './represent_white_outline.svg';
                 required
                 hintText="What is your postcode?"
                 floatingLabelText="Postcode"
-                fullWidth={true}
+                fullWidth
               />
               <FormsyDate
                 name="date"
                 required
                 floatingLabelText="Date of Birth"
-                fullWidth={true}
+                fullWidth
               />
-              <RaisedButton label="Submit" fullWidth={true} disabled={!this.state.canSubmitA} />
+              <RaisedButton
+                label="Submit"
+                fullWidth
+                disabled={!this.state.canSubmitA}
+              />
             </Formsy.Form>
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   toggleSubmitA(value) {
-    this.setState({canSubmitA: value})
+    this.setState({ canSubmitA: value });
   }
 
-  onSubmitA() {
-
-  }
+  onSubmitA() {}
 }
 
-export default CandidateNew
+export default CandidateNew;

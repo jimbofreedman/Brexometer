@@ -1,2 +1,3 @@
-import ErrorReload from './ErrorReload'
-export default ErrorReload
+import ErrorReload from './ErrorReload';
+
+export default ErrorReload;

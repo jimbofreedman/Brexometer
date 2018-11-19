@@ -1,20 +1,20 @@
 import React from 'react';
-import { inject, observer } from "mobx-react";
-import { observable, autorun, extendObservable } from "mobx";
+import { inject, observer } from 'mobx-react';
+import { observable, autorun, extendObservable } from 'mobx';
 import { parse } from 'query-string';
 
-import AgeProfileBarchart from "../charts/AgeProfileBarchart";
-import AnswersOverTimeAreachart from "../charts/AnswersOverTimeAreachart";
-import QuestionResultsBarchart from "../charts/QuestionResultsBarchart";
-import QuestionPopulationStackedChart from "../charts/QuestionPopulationStackedChart";
-import CertanityStatisticsBarchart from "../charts/CertanityStatisticsBarchart";
+import AgeProfileBarchart from '../charts/AgeProfileBarchart';
+import AnswersOverTimeAreachart from '../charts/AnswersOverTimeAreachart';
+import QuestionResultsBarchart from '../charts/QuestionResultsBarchart';
+import QuestionPopulationStackedChart from '../charts/QuestionPopulationStackedChart';
+import CertanityStatisticsBarchart from '../charts/CertanityStatisticsBarchart';
 import QuestionWeightedAverageLineChart from '../charts/QuestionWeightedAverageLineChart';
-import QuestionService from "../../services/QuestionService";
-import CompareCollectionUsers from "../CompareCollectionUsers";
+import QuestionService from '../../services/QuestionService';
+import CompareCollectionUsers from '../CompareCollectionUsers';
 import QuestionLiquidPiechart from '../charts/QuestionLiquidPiechart';
 
-const Test = inject("QuestionStore", "CollectionStore")(({ QuestionStore, CollectionStore, location, router, query }) => {
-
+const Test = inject('QuestionStore', 'CollectionStore')(
+  ({ QuestionStore, CollectionStore, location, router, query }) => {
     // let querySearch = parse(location.search);
     // let userIds = querySearch.users ? querySearch.users.split(',') : [];
     // console.log('userIds: ', userIds);
@@ -36,14 +36,15 @@ const Test = inject("QuestionStore", "CollectionStore")(({ QuestionStore, Collec
     // )
 
     CollectionStore.getCollectionItemsById(24)
-      .then((response) => {
-        console.log(response)
+      .then(response => {
+        console.log(response);
       })
-      .catch((error) => {
-        console.log(error)
-      })
+      .catch(error => {
+        console.log(error);
+      });
 
     return null;
-})
+  }
+);
 
 export default Test;

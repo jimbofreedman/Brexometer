@@ -1,2 +1,3 @@
-import CollectionAdminView from './CollectionAdminView'
-export default CollectionAdminView
+import CollectionAdminView from './CollectionAdminView';
+
+export default CollectionAdminView;

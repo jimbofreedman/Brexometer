@@ -2,22 +2,20 @@ import React, { Component } from 'react';
 import makeAsyncScriptLoader from 'react-async-script';
 
 class MessengerCheckboxPlugin extends Component {
-
   constructor() {
     super();
   }
 
   initFacebookSDK() {
+    const { FB } = this.props;
 
-      const {FB} = this.props;
-
-      if (FB) {
-          FB.init({
-              appId: this.props.appId,
-              xfbml: true,
-              version: 'v2.6'
-          });
-        }
+    if (FB) {
+      FB.init({
+        appId: this.props.appId,
+        xfbml: true,
+        version: 'v2.6',
+      });
+    }
   }
 
   shouldComponentUpdate() {
@@ -25,16 +23,15 @@ class MessengerCheckboxPlugin extends Component {
   }
 
   componentDidMount() {
-      this.initFacebookSDK();
+    this.initFacebookSDK();
   }
 
   componentDidUpdate() {
-      this.initFacebookSDK();
+    this.initFacebookSDK();
   }
 
   render() {
-
-    let markup = {
+    const markup = {
       __html: `<div class="fb-messenger-checkbox"
             origin="${window.location.href}"
             page_id="${this.props.pageId}"
@@ -42,17 +39,15 @@ class MessengerCheckboxPlugin extends Component {
             user_ref="UNIQUE_REF"
             prechecked="true"
             allow_login="true"
-            size="large"></div>`
-    }
+            size="large"></div>`,
+    };
 
-    return(
-      <div dangerouslySetInnerHTML={markup}></div>
-    )
+    return <div dangerouslySetInnerHTML={markup} />;
   }
 }
 
 const URL = '//connect.facebook.net/en_US/sdk.js';
 
 export default makeAsyncScriptLoader(MessengerCheckboxPlugin, URL, {
-    globalName: 'FB'
+  globalName: 'FB',
 });

@@ -1,2 +1,3 @@
-import CandidateNew from './CandidateNew'
-export default CandidateNew
+import CandidateNew from './CandidateNew';
+
+export default CandidateNew;

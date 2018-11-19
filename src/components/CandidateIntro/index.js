@@ -1,2 +1,3 @@
-import CandidateIntro from './CandidateIntro'
-export default CandidateIntro
+import CandidateIntro from './CandidateIntro';
+
+export default CandidateIntro;

@@ -1,155 +1,179 @@
 import { observable, autorun } from 'mobx';
 
 class QuestionStore {
-
   questions = observable.map({}, { deep: false });
+
   searchCache = observable.map({}, { deep: false });
 
   loadQuestion(id, forceUpdate = false) {
-    let self = this;
+    const self = this;
     return new Promise((resolve, reject) => {
-
       if (!forceUpdate && self.questions.has(id)) {
         return resolve(self.questions.get(id));
-        return
       }
 
-      window.API.get('/api/questions/', {params: { id: id } })
-        .then(function (response) {
-          if(!response.data.results[0]) {
-            return reject("Question not found");
-          }
-          self.questions.set(response.data.results[0].id, response.data.results[0]);
-          return resolve(self.questions.get(response.data.results[0].id))
-        }.bind(self));
-    })
+      window.API.get('/api/questions/', { params: { id } }).then(response => {
+        if (!response.data.results[0]) {
+          return reject('Question not found');
+        }
+        self.questions.set(
+          response.data.results[0].id,
+          response.data.results[0]
+        );
+        return resolve(self.questions.get(response.data.results[0].id));
+      });
+    });
   }
 
   getQuestionById(id) {
-
-    return new Promise((resolve, reject) => { // Return a promise of search results
-      if(this.questions.has(id)) { // Check cache for results, and instantly resolve if exists
-        resolve(this.questions.get(id))
+    return new Promise((resolve, reject) => {
+      // Return a promise of search results
+      if (this.questions.has(id)) {
+        // Check cache for results, and instantly resolve if exists
+        resolve(this.questions.get(id));
         return;
       }
 
-      window.API.get(`/api/questions/${id}/`)//' + id + '
-        .then((response) => {
-          if(!response.data) {
-            reject("No data")
-          }else {
+      window.API.get(`/api/questions/${id}/`) // ' + id + '
+        .then(response => {
+          if (!response.data) {
+            reject('No data');
+          } else {
             this.questions.set(response.data.id, response.data);
-            resolve(response.data)
+            resolve(response.data);
           }
         })
-        .catch((error) => {
-          reject(error)
-        })
+        .catch(error => {
+          reject(error);
+        });
     });
   }
 
   searchQuestions(search) {
-    return new Promise((resolve, reject) => { // Return a promise of search results
-      if(this.searchCache.has(search)) { // Check cache for results, and instantly resolve if exists
-        resolve(this.searchCache.get(search))
-        return
+    return new Promise((resolve, reject) => {
+      // Return a promise of search results
+      if (this.searchCache.has(search)) {
+        // Check cache for results, and instantly resolve if exists
+        resolve(this.searchCache.get(search));
+        return;
       }
 
-      window.API.get('/api/questions/', {params: { search, page_size: 3 } })
-        .then((response) => {
-          let searchResultOutput = []
-          if(!response.data.results) {
-            reject("No results found")
-          }else {
-            for(let question of response.data.results) {
+      window.API.get('/api/questions/', { params: { search, page_size: 3 } })
+        .then(response => {
+          const searchResultOutput = [];
+          if (!response.data.results) {
+            reject('No results found');
+          } else {
+            for (const question of response.data.results) {
               this.questions.set(question.id, question);
               searchResultOutput.push(question.id);
             }
-            this.searchCache.set(search, searchResultOutput)
+            this.searchCache.set(search, searchResultOutput);
           }
-          resolve(searchResultOutput)
+          resolve(searchResultOutput);
         })
-        .catch((error) => {
-          reject(error)
-        })
+        .catch(error => {
+          reject(error);
+        });
     });
   }
 
   voteQuestionLikert(questionId, value, collection = null) {
-    console.log("VOTE LIKERT");
-    if(!this.questions.has(questionId) || !value) {
+    console.log('VOTE LIKERT');
+    if (!this.questions.has(questionId) || !value) {
       return false;
     }
 
     window.API.post('/api/question_votes/', {
-        object_id: questionId,
-        value,
-        collection,
-        private: true,
-      })
-      .then(function (response) {
-        this.loadQuestion(questionId, true);
-      }.bind(this));
+      object_id: questionId,
+      value,
+      collection,
+      private: true,
+    }).then(response => {
+      this.loadQuestion(questionId, true);
+    });
   }
 
   voteQuestionMCQ(questionId, value, collection = null) {
-    console.log("VOTE MCQ");
-    if(!this.questions.has(questionId) || !value) {
+    console.log('VOTE MCQ');
+    if (!this.questions.has(questionId) || !value) {
       return false;
     }
 
     window.API.post('/api/question_choice_votes/', {
-        object_id: value,
-        value: 5,
-        collection,
-        private: true,
-      })
-      .then(function (response) {
-        this.loadQuestion(questionId, true);
-      }.bind(this));
+      object_id: value,
+      value: 5,
+      collection,
+      private: true,
+    }).then(response => {
+      this.loadQuestion(questionId, true);
+    });
   }
 
   getCollectionItem(collectionId, questionId) {
-    return this.collectionItems.values().filter((item) => { return (item.parent === collectionId && item.question === questionId)})[0];
+    return this.collectionItems
+      .values()
+      .filter(
+        item => item.parent === collectionId && item.question === questionId
+      )[0];
   }
 
   updateCollectionQuestions(collectionId, newQuestions) {
+    const apiQueue = [];
 
-    let apiQueue = [];
+    for (const questionId of newQuestions) {
+      // Loop through questions looking for new questions and updated orders
 
-    for(let questionId of newQuestions) { // Loop through questions looking for new questions and updated orders
+      const oldIndex = this.collectionQuestions
+        .get(collectionId)
+        .indexOf(questionId);
+      const newIndex = newQuestions.indexOf(questionId);
 
-      let oldIndex = this.collectionQuestions.get(collectionId).indexOf(questionId);
-      let newIndex = newQuestions.indexOf(questionId);
-
-      if (oldIndex == -1) { // New question has been added to the collection
-        apiQueue.push(window.API.post('/api/question_collection_items/', {
+      if (oldIndex == -1) {
+        // New question has been added to the collection
+        apiQueue.push(
+          window.API.post('/api/question_collection_items/', {
             parent: collectionId,
             question: questionId,
-            order: newIndex
-          }));
-      }else if(oldIndex != newIndex) { // Existing question order has changed
-        apiQueue.push(window.API.patch('/api/question_collection_items/' + this.getCollectionItem(collectionId, questionId).id + '/', {
-            order: newIndex
-          }));
+            order: newIndex,
+          })
+        );
+      } else if (oldIndex != newIndex) {
+        // Existing question order has changed
+        apiQueue.push(
+          window.API.patch(
+            `/api/question_collection_items/${
+              this.getCollectionItem(collectionId, questionId).id
+            }/`,
+            {
+              order: newIndex,
+            }
+          )
+        );
       } // Otherwise the question has not changed
     }
 
-    for(let questionId of this.collectionQuestions.get(collectionId)) { // Loop through existing questions looking for deleted items
-      let newIndex = newQuestions.indexOf(questionId);
-      if(newIndex == -1) { // Question has been deleted
-        apiQueue.push(window.API.delete('/api/question_collection_items/' + this.getCollectionItem(collectionId, questionId).id + '/'));
+    for (const questionId of this.collectionQuestions.get(collectionId)) {
+      // Loop through existing questions looking for deleted items
+      const newIndex = newQuestions.indexOf(questionId);
+      if (newIndex == -1) {
+        // Question has been deleted
+        apiQueue.push(
+          window.API.delete(
+            `/api/question_collection_items/${
+              this.getCollectionItem(collectionId, questionId).id
+            }/`
+          )
+        );
       }
     }
 
-    window.API.all(apiQueue).then(window.API.spread(function() {
-      this.loadCollectionQuestions(collectionId, true);
-    }.bind(this)));
-
-
+    window.API.all(apiQueue).then(
+      window.API.spread(() => {
+        this.loadCollectionQuestions(collectionId, true);
+      })
+    );
   }
-
-
 }
 
 export default QuestionStore;
