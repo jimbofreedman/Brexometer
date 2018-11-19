@@ -57,7 +57,7 @@ render() {
           label='load more questions'
           buttonStyle={{backgroundColor: 'lightgrey', marginBottom: 0}}
           labelColor='rgb(0,172,193)'
-          onTouchTap={()=> this.handleTap(collectionId)}
+          onClick={()=> this.handleTap(collectionId)}
         /> */}
         <CollectionSharingLinks collection={collection} />
       </div>
@@ -132,13 +132,13 @@ class ResponsiveCollectionContainer extends React.Component{
 }}
 
 const ArrowLeftContainer = (props) => (
-  <IconButton onTouchTap={props.handleMoveLeft} style={{position: 'absolute', left: 10, top: '40%'}}>
+  <IconButton onClick={props.handleMoveLeft} style={{position: 'absolute', left: 10, top: '40%'}}>
     <KeyboardArrowLeft style={{margin: '0 auto', zIndex: 10}}/>
   </IconButton>
 );
 
 const ArrowRightContainer = (props) => (
-  <IconButton onTouchTap={props.handleMoveRight} style={{position: 'absolute', right: 10, top: '40%'}}>
+  <IconButton onClick={props.handleMoveRight} style={{position: 'absolute', right: 10, top: '40%'}}>
     <KeyboardArrowRight style={{margin: '0 auto', zIndex: 10}}/>
   </IconButton>
 );

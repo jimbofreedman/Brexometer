@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Shell from './components/Shell';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Provider } from 'mobx-react';
 import { observable } from 'mobx';
 import axios from 'axios';
@@ -18,8 +17,6 @@ import DemographicsDataStore from './Stores/DemographicsDataStore.js';
 import CensusDataStore from './Stores/CensusDataStore.js';
 import AppStatisticsStore from './Stores/AppStatisticsStore.js';
 import ReactGA from 'react-ga';
-
-injectTapEventPlugin();
 
 ReactGA.initialize('UA-59994709-1', {
   debug: true,

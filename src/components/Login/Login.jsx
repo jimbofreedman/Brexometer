@@ -120,7 +120,7 @@ export default class Login extends Component {
             <FlatButton
               label="Close"
               primary={true}
-              onTouchTap={() => this.setState({problems: null})}
+              onClick={() => this.setState({problems: null})}
             />
           }
         >

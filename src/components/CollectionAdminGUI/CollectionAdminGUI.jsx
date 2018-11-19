@@ -106,11 +106,11 @@ const styles = {
               <FlatButton
                 label="Cancel"
                 secondary={true}
-                onTouchTap={() => this.setState({showAddBreakDialog: false})}
+                onClick={() => this.setState({showAddBreakDialog: false})}
               />,
               <FlatButton
                 label="Add"
-                onTouchTap={() => {
+                onClick={() => {
 
                   if(!this.state.addBreakDialogTitle) {
                     return
@@ -153,7 +153,7 @@ const styles = {
               <FlatButton
                 label="Cancel"
                 secondary={true}
-                onTouchTap={() => this.setState({showAddExistingQuestionDialog: false})}
+                onClick={() => this.setState({showAddExistingQuestionDialog: false})}
               />
             }
             modal={false}

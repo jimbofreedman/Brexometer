@@ -241,14 +241,14 @@ export default class Shell extends Component {
                       <FlatButton
                         label="Logout"
                         secondary={true}
-                        onTouchTap={() => {
+                        onClick={() => {
                           this.props.UserStore.logout();
                         }}
                       />
                       <FlatButton
                         label="Close"
                         secondary={true}
-                        onTouchTap={() => {
+                        onClick={() => {
                           this.props.UserStore.toggleUserDialog();
                         }}
                       />

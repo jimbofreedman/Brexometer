@@ -249,7 +249,7 @@ let LikertButtons = (props) => {
     likertJSX.push(<div
       className={ "likertButton likertButton" + i + ( props.value && props.value !== i ? " likertButtonDimmed" : "")}
       key={i}
-      onTouchTap={() => props.onUpdate(i)}></div>); //onClick()
+      onClick={() => props.onUpdate(i)}></div>); //onClick()
   }
   return (<div style={{overflow: 'hidden', textAlign: 'center', margin: '0 auto'}}>{likertJSX.map((item, index) => {return item})}</div>);
 }
@@ -267,7 +267,7 @@ let LikertButtons = (props) => {
 //             labelStyle={{fontSize: 12}}
 //             style={{display:'block', margin: '5px 0px', maxWidth: '600px', minHeight: '25px'}}
 //             //overlayStyle={{height: 'auto'}}
-//             onTouchTap={() => props.onUpdate(choice.id)}
+//             onClick={() => props.onUpdate(choice.id)}
 //         />);
 //       })}
 //     </div>
@@ -283,7 +283,7 @@ const MCQButtons = (props) => {
           <div
             key={`p-${index}`}
             className='mcqButton'
-            onTouchTap={() => props.onUpdate(choice.id)}
+            onClick={() => props.onUpdate(choice.id)}
           >
             {choice.text}
           </div>

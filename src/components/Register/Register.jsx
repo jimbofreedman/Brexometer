@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { observer, inject } from "mobx-react";
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
@@ -6,7 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import TextField from 'material-ui/TextField';
 import { cyan600, orange500 } from 'material-ui/styles/colors';
-import MuiGeoSuggest from 'material-ui-geosuggest';
+// import MuiGeoSuggest from 'material-ui-geosuggest';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 
@@ -214,10 +215,15 @@ let FormTextField = (props) => (
   />
 )
 
+FormTextField.propTypes = {
+  hintText: PropTypes.string.isRequired,
+  stateField: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  autoFocus: PropTypes.boolean,
+  type: PropTypes.string
+}
+
 FormTextField.defaultProps = {
-  hintText: React.PropTypes.string.isRequired,
-  stateField: React.PropTypes.string.isRequired,
-  value: React.PropTypes.string.isRequired,
   autoFocus: true,
   type: 'text',
 }
