@@ -19,13 +19,16 @@
     "detect-port": "1.0.1",
     "dotenv": "2.0.0",
     "enzyme": "^2.7.1",
-    "eslint": "3.8.1",
-    "eslint-config-react-app": "^0.5.1",
-    "eslint-loader": "1.6.0",
-    "eslint-plugin-flowtype": "2.21.0",
-    "eslint-plugin-import": "2.0.1",
-    "eslint-plugin-jsx-a11y": "2.2.3",
-    "eslint-plugin-react": "6.4.1",
+    "eslint": "5.9.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-config-react-app": "^3.0.5",
+    "eslint-loader": "2.1.1",
+    "eslint-plugin-flowtype": "3.2.0",
+    "eslint-plugin-import": "2.14.0",
+    "eslint-plugin-jsx-a11y": "6.1.2",
+    "eslint-plugin-prettier": "^3.0.0",
+    "eslint-plugin-react": "7.11.1",
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.10.0",
     "filesize": "3.3.0",
@@ -38,11 +41,13 @@
     "mobx-react-devtools": "^6.0.3",
     "object-assign": "4.1.1",
     "postcss-loader": "1.2.2",
+    "prettier": "^1.15.2",
     "promise": "7.1.1",
     "react-dev-utils": "^0.5.0",
     "recursive-readdir": "2.1.0",
     "strip-ansi": "3.0.1",
     "style-loader": "0.13.1",
+    "textlint": "^11.0.1",
     "url-loader": "0.5.7",
     "webpack": "1.14.0",
     "webpack-dev-server": "1.16.2",
@@ -93,7 +98,11 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
-    "release": "bash release.sh"
+    "release": "bash release.sh",
+    "lint": "./node_modules/.bin/eslint --ext .js,.jsx --ignore-pattern public src",
+    "lint:fix": "./node_modules/.bin/eslint --fix --ext .js,.jsx --ignore-pattern public src",
+    "lint:text": "textlint src/pages/**/index.md",
+    "lint:textfix": "textlint --fix src/pages/**/index.md"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -126,8 +135,5 @@
     "presets": [
       "react-app"
     ]
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   }
 }
