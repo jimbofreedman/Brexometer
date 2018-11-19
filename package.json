@@ -74,7 +74,7 @@
     "mobx-react-router": "^4.0.5",
     "moment": "^2.18.1",
     "query-string": "^4.3.2",
-    "react": "^15.4.2",
+    "react": "^16.6.3",
     "react-addons-css-transition-group": "^15.4.2",
     "react-custom-scrollbars": "^4.0.2",
     "react-dom": "^15.4.2",
