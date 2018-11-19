@@ -4,15 +4,18 @@ import GeoService from '../services/GeoService'
 
 class UserStore {
 
-  userData = observable.shallowMap({});
-  sessionData = observable.shallowMap({
-    authToken: "",
-    showUserDialog: false,
-  });
+  userData = observable.map({}, { deep: false });
+  sessionData = observable.map(
+    {
+      authToken: "",
+      showUserDialog: false,
+    },
+    { deep: false}
+  );
 
-  userLocation = observable.shallowMap({
+  userLocation = observable.map({
     pathname: window.location.pathname
-  });
+  }, { deep: false });
 
   updateAxios = observe(this.sessionData, "authToken", (change) => {
     if(change.newValue) {

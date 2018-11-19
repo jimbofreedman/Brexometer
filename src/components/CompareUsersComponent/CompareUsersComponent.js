@@ -24,11 +24,11 @@ const CompareCollectionUsers = inject("CollectionStore", "UserStore", "QuestionS
 
   let userLoggedIn = true //UserStore.isLoggedIn();
   let currentUserId = 5570//userLoggedIn && UserStore.userData.get("id");
-  let viewData = observable.shallowObject({
+  let viewData = observable.object({
     isLoggedIn: userLoggedIn,
     users: observable.shallowArray([]),
-    compareData: observable.shallowMap()
-  });
+    compareData: observable.map({}, { deep: false })
+  }, {}, { deep: false });
 
   if (!userIds.length) console.log('No users specified to compare');
   if (userLoggedIn) {

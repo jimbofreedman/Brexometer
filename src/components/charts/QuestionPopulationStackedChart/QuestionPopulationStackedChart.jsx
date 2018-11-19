@@ -10,14 +10,14 @@ import QuestionService from "../../../services/QuestionService";
 const QuestionPopulationStackedChart = inject("CensusDataStore", "DemographicsDataStore", "QuestionStore")(({ CensusDataStore, DemographicsDataStore, QuestionStore, questionId, geoId, data, height = null}) => {
   let certainityStatisticsArr = null;
   let currentlyShowingIndex = null;
-  let viewData = observable.shallowObject({
+  let viewData = observable.object({
     values: null
-  });
+  }, {}, { deep: false });
 
   initData(function (censusData, demogrData, question) {
     viewData.values = question.choices && generateDemogrChartData(demogrData, question.choices); // generate only if question loaded
     viewData.values = setCensusChartData(viewData.values, censusData[0]);
-  })
+  }, { deep: false })
 
 	return (
     <QuestionPopulationStackedChartView data={viewData} height={height} />

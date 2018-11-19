@@ -18,9 +18,9 @@ const QuestionLiquidPiechart = inject("QuestionStore")(({ QuestionStore, questio
       'liquid_skipped': {name: 'Skip', color: 'rgb(198,199,202)', direct: 'direct_skipped'}
     }
     const colors_mcq = ['#0088FE', '#FFBB28', '#a3a375', '#FF8042', '#df64ef', '#38b4c4', '#ff80aa', '#a3a3c2', '#8cff66', '#66b3ff', '#a64dff', '#00ff80'];
-    let viewData = observable.shallowObject({
+    let viewData = observable.object({
       values: null
-    });
+    }, {}, { deep: false });
 
     function* fetcherGen(){
       yield QuestionStore.getQuestionById(questionId)
