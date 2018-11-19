@@ -1,0 +1,20 @@
+{
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "brexometer-20181119175307-authRole",
+			"UnauthRoleArn": "arn:aws:iam::233747919055:role/brexometer-20181119175307-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::233747919055:role/brexometer-20181119175307-authRole",
+			"Region": "eu-west-1",
+			"DeploymentBucketName": "brexometer-20181119175307-deployment",
+			"UnauthRoleName": "brexometer-20181119175307-unauthRole",
+			"StackName": "brexometer-20181119175307",
+			"StackId": "arn:aws:cloudformation:eu-west-1:233747919055:stack/brexometer-20181119175307/f8de9f70-ec23-11e8-b2b8-503abe701c29"
+		}
+	},
+	"hosting": {
+		"S3AndCloudFront": {
+			"service": "S3AndCloudFront",
+			"providerPlugin": "awscloudformation"
+		}
+	}
+}
