@@ -15,7 +15,7 @@ import { arrayMove } from 'react-sortable-hoc';
 import LinearProgress from 'material-ui/LinearProgress';
 import CollectionAdminGUI from '../CollectionAdminGUI';
 
-@inject('QuestionStore', 'CollectionStore', 'UserStore')
+@inject('QuestionStore', 'CollectionStore', 'authStore')
 @observer
 class EditCollection extends Component {
   constructor() {
@@ -84,9 +84,9 @@ class EditCollection extends Component {
     // Called every time the store updates (Requires a reference to store in render())
     const collectionId = parseInt(this.props.match.params.collectionId); // Check if user is the owner of the collection, otherwise navigate away
     if (
-      this.props.UserStore.userData.has('id') &&
+      this.props.authStore.currentUser &&
       this.props.CollectionStore.collections.get(collectionId).user.id !==
-        this.props.UserStore.userData.get('id')
+        this.props.authStore.currentUser.id
     ) {
       this.props.push('/');
     }
@@ -99,7 +99,7 @@ class EditCollection extends Component {
     if (
       !this.props.CollectionStore.collections.has(collectionId) ||
       !this.props.QuestionStore.collectionQuestions.has(collectionId) ||
-      !this.props.UserStore.userData.has('id')
+      !this.props.authStore.currentUser
     ) {
       return <LinearProgress mode="indeterminate" />;
     }

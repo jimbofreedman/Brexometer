@@ -32,7 +32,7 @@ const roundUp = (x) => {
     return x;
 }
 
-@inject("UserStore") @observer export default class JoinGroup extends Component {
+@inject("authStore") @observer export default class JoinGroup extends Component {
 
   constructor() {
     super();
@@ -129,8 +129,8 @@ const roundUp = (x) => {
           <p style={{fontWeight: 'bold'}}>{"You're now a member of " + this.state.group.name}</p>
         </Dialog>
 
-        <Dialog open={this.props.UserStore.userData.has("id") && !this.state.joinComplete}>
-          <p>Welcome back, <b>{this.props.UserStore.userData.get("first_name")}</b>{". Would you like to join the " + this.state.group.name + " group on Represent?"}</p>
+        <Dialog open={this.props.authStore.currentUser && !this.state.joinComplete}>
+          <p>Welcome back, <b>{this.props.authStore.userData.firstName}</b>{". Would you like to join the " + this.state.group.name + " group on Represent?"}</p>
           <FlatButton label={"Join " + this.state.group.name} primary style={{width: '100%'}} backgroundColor={grey100} secondary onClick={() => this.joinGroup()} />
         </Dialog>
 
@@ -216,7 +216,7 @@ const roundUp = (x) => {
             password: Math.floor(Math.random() * 1000000000000),
             location,
           }).then(function(response) {
-            this.props.UserStore.setupAuthToken(response.data.auth_token);
+            this.props.authStore.setupAuthToken(response.data.auth_token);
             this.joinGroup();
           }.bind(this)).catch(function(error) {
             this.setState({problems: [JSON.stringify(error.response.data)]})

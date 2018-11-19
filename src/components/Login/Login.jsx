@@ -15,7 +15,7 @@ import DynamicConfigService from '../../services/DynamicConfigService';
 import './Login.css';
 import smallLogo from './represent_white_outline.svg';
 
-@inject("UserStore")
+@inject("authStore")
 @inject("routing")
 @observer
 export default class Login extends Component {
@@ -44,10 +44,10 @@ export default class Login extends Component {
   }
 
   render() {
-    const { UserStore, routing } = this.props;
+    const { authStore, routing } = this.props;
     const { history, push, goBack, location } = routing;
 
-    if (UserStore.isLoggedIn()) {
+    if (authStore.currentUser) {
       return <Redirect to={location.state && location.state.from ? location.state.from : "/"} />;
     }
 
@@ -134,23 +134,14 @@ export default class Login extends Component {
   }
 
   attemptLogin() {
-    const { UserStore, routing } = this.props;
+    const { authStore } = this.props;
 
-    UserStore.authLogin(this.state.email, this.state.password)
-      .catch(((error) => {
-        console.log("AUTH LOGIN ERROR");
-        console.log(error);
-        if (error.response.data.non_field_errors) {
-          this.setState({ problems: ["Username / password combination not found! Please check your details and try again"] });
-        } else if (error) {
-          this.setState({ problems: JSON.stringify(error.response.data).replace(/:/g, ": ").replace(/[&\/\\#+()$~%.'"*?<>{}\[\]]/g, "").split(",") });
-        }
-      }).bind(this));
+    authStore.login(this.state.email, this.state.password)
   }
 
   facebookCallback(result) {
     if(result.accessToken) {
-      this.props.UserStore.authYeti('facebook', result.accessToken);
+      this.props.authStore.loginYeti('facebook', result.accessToken);
     }
   }
 }

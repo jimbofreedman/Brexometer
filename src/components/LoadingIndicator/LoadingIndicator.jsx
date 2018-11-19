@@ -1,6 +1,5 @@
 import React from 'react';
-import { inject, observer } from 'mobx-react';
-import { observable, reaction } from 'mobx';
+import PropTypes from 'prop-types';
 import CircularProgress from 'material-ui/CircularProgress';
 import { cyan600 } from 'material-ui/styles/colors';
 
@@ -13,13 +12,22 @@ const containerStyle = {
   backgroundColor: '#eeeeee',
 };
 
-const LoadingIndicator = props => {
-  const text = props.text || 'Loading...';
-  return (
+const LoadingIndicator = ({visible, text}) => {
+  return visible && (
     <div style={containerStyle}>
       <CircularProgress size={80} thickness={5} color={cyan600} />
     </div>
   );
+};
+
+LoadingIndicator.propTypes = {
+  visible: PropTypes.bool,
+  text: PropTypes.string,
+};
+
+LoadingIndicator.defaultProps = {
+  visible: true,
+  text: 'Loading...',
 };
 
 export default LoadingIndicator;

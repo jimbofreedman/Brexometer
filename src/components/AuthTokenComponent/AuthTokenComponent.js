@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import DynamicConfigService from '../../services/DynamicConfigService';
 
-@inject('UserStore')
+@inject('authStore')
 @observer
 class AuthTokenComponent extends Component {
   componentWillMount() {
@@ -15,7 +15,7 @@ class AuthTokenComponent extends Component {
       );
     }
 
-    this.props.UserStore.setupAuthToken(authtoken)
+    this.props.authStore.setupAuthToken(authtoken)
       .then(response => {
         this.props.history.push(this.dynamicConfig.getNextRedirect());
       })

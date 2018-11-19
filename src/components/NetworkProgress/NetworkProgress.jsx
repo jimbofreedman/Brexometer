@@ -47,8 +47,5 @@ export default class NetworkProgress extends Component {
       return <LinearProgress mode="determinate" value={0} color={ cyan600 } style={{backgroundColor: white}}  />
     }
       return <LinearProgress mode="indeterminate" color={ cyan600 } style={{backgroundColor: white}} />
-    
-
-  }
   }
 }

@@ -7,7 +7,7 @@ import FormsyDate from 'formsy-material-ui/lib/FormsyDate';
 
 import logo from './represent_white_outline.svg';
 
-@inject('UserStore')
+@inject('authStore')
 @observer
 class CandidateNew extends Component {
   constructor() {

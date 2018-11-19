@@ -11,7 +11,7 @@ import { cyan600, orange500 } from 'material-ui/styles/colors';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 
-@inject('QuestionStore', 'CollectionStore', 'UserStore')
+@inject('QuestionStore', 'CollectionStore', 'authStore')
 @observer
 class Register extends Component {
   constructor() {
@@ -241,7 +241,7 @@ class Register extends Component {
         showErrorDialog: true,
       });
     } else {
-      this.props.UserStore.register()
+      this.props.authStore.register()
         .then(response => {
           console.log(response);
         })

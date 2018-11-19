@@ -10,12 +10,13 @@ import { Router } from 'react-router';
 
 /* STORES */
 import ReactGA from 'react-ga';
-import UserStore from './Stores/UserStore.js';
-import CollectionStore from './Stores/CollectionStore.js';
-import QuestionStore from './Stores/QuestionStore.js';
-import DemographicsDataStore from './Stores/DemographicsDataStore.js';
-import CensusDataStore from './Stores/CensusDataStore.js';
-import AppStatisticsStore from './Stores/AppStatisticsStore.js';
+import commonStore from './stores/CommonStore';
+import authStore from './stores/AuthStore.js';
+import CollectionStore from './stores/CollectionStore.js';
+import QuestionStore from './stores/QuestionStore.js';
+import DemographicsDataStore from './stores/DemographicsDataStore.js';
+import CensusDataStore from './stores/CensusDataStore.js';
+import AppStatisticsStore from './stores/AppStatisticsStore.js';
 import Shell from './components/Shell';
 
 ReactGA.initialize('UA-59994709-1', {
@@ -55,7 +56,6 @@ if (location.host === 'open.represent.me') {
 const routing = new RouterStore();
 
 window.stores = {
-  UserStore: new UserStore(),
   CollectionStore: new CollectionStore(),
   QuestionStore: new QuestionStore(),
   DemographicsDataStore: new DemographicsDataStore(),
@@ -66,6 +66,17 @@ window.stores = {
 
 window.REPRESENT = (element, initialPath = '/', virtualLocation = true) => {
   let history;
+
+  const stores = {
+    commonStore,
+    authStore,
+    CollectionStore: window.stores.CollectionStore,
+    QuestionStore: window.stores.QuestionStore,
+    DemographicsDataStore: window.stores.DemographicsDataStore,
+    CensusDataStore: window.stores.CensusDataStore,
+    AppStatisticsStore: window.stores.AppStatisticsStore,
+    routing: window.stores.routing
+  };
 
   if (virtualLocation) {
     history = createMemoryHistory({
@@ -81,17 +92,10 @@ window.REPRESENT = (element, initialPath = '/', virtualLocation = true) => {
     });
   }
 
+
   ReactDOM.render(
     <div>
-      <Provider
-        UserStore={window.stores.UserStore}
-        CollectionStore={window.stores.CollectionStore}
-        QuestionStore={window.stores.QuestionStore}
-        DemographicsDataStore={window.stores.DemographicsDataStore}
-        CensusDataStore={window.stores.CensusDataStore}
-        AppStatisticsStore={window.stores.AppStatisticsStore}
-        routing={window.stores.routing}
-      >
+      <Provider {...stores}>
         <Shell history={history} />
       </Provider>
     </div>,

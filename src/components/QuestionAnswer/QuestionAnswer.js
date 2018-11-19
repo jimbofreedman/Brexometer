@@ -25,7 +25,7 @@ import LoadingIndicator from '../LoadingIndicator';
 import ErrorReload from '../ErrorReload';
 import DynamicConfigService from '../../services/DynamicConfigService';
 
-// let QuestionFlow = inject("CollectionStore", "QuestionStore", "UserStore")(observer(({ history, UserStore, CollectionStore, QuestionStore, match }) => {
+// let QuestionFlow = inject("CollectionStore", "QuestionStore", "authStore")(observer(({ history, authStore, CollectionStore, QuestionStore, match }) => {
 
 const monthNames = [
   'January',
@@ -42,7 +42,7 @@ const monthNames = [
   'December',
 ];
 
-@inject('CollectionStore', 'QuestionStore', 'UserStore', 'routing')
+@inject('CollectionStore', 'QuestionStore', 'authStore', 'routing')
 @observer
 class QuestionAnswer extends Component {
   constructor() {
@@ -83,7 +83,7 @@ class QuestionAnswer extends Component {
   componentDidMount() {
     const {
       history,
-      UserStore,
+      authStore,
       CollectionStore,
       QuestionStore,
       match,

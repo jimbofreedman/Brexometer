@@ -6,7 +6,7 @@ import Dialog from 'material-ui/Dialog';
 
 import logo from './represent_white_outline.svg';
 
-@inject('UserStore')
+@inject('authStore')
 @observer
 class CandidateIntro extends Component {
   constructor() {
@@ -99,12 +99,12 @@ class CandidateIntro extends Component {
   checkEmail() {
     this.setState({ checking: true });
 
-    if (!this.props.UserStore.checkEmailRegex(this.state.email)) {
+    if (!this.props.authStore.checkEmailRegex(this.state.email)) {
       this.setState({ emailInvalid: true, checking: false });
       return;
     }
 
-    this.props.UserStore.checkEmail(this.state.email).then(exists => {
+    this.props.authStore.checkEmail(this.state.email).then(exists => {
       if (exists) {
         this.setState({ checking: false, showEmailExistsDialog: true });
       } else {

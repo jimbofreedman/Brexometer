@@ -28,7 +28,7 @@ import DynamicConfigService from '../../services/DynamicConfigService';
 
 import './QuestionFlow.css';
 
-// let QuestionFlow = inject("CollectionStore", "QuestionStore", "UserStore")(observer(({ history, UserStore, CollectionStore, QuestionStore, match }) => {
+// let QuestionFlow = inject("CollectionStore", "QuestionStore", "authStore")(observer(({ history, authStore, CollectionStore, QuestionStore, match }) => {
 
 const monthNames = [
   'January',
@@ -45,7 +45,7 @@ const monthNames = [
   'December',
 ];
 
-@inject('CollectionStore', 'QuestionStore', 'UserStore', 'routing')
+@inject('CollectionStore', 'QuestionStore', 'authStore', 'routing')
 @observer
 class QuestionFlow extends Component {
   constructor() {
@@ -102,7 +102,7 @@ class QuestionFlow extends Component {
   render() {
     const {
       history,
-      UserStore,
+      authStore,
       CollectionStore,
       QuestionStore,
       match,
