@@ -4,15 +4,18 @@ import GeoService from '../services/GeoService'
 
 class UserStore {
 
-  userData = observable.shallowMap({});
-  sessionData = observable.shallowMap({
-    authToken: "",
-    showUserDialog: false,
-  });
+  userData = observable.map({}, { deep: false });
+  sessionData = observable.map(
+    {
+      authToken: "",
+      showUserDialog: false,
+    },
+    { deep: false}
+  );
 
-  userLocation = observable.shallowMap({
+  userLocation = observable.map({
     pathname: window.location.pathname
-  });
+  }, { deep: false });
 
   updateAxios = observe(this.sessionData, "authToken", (change) => {
     if(change.newValue) {
@@ -40,20 +43,28 @@ class UserStore {
         return Promise.reject(error);
       }.bind(this));
 
+    this.logout = this.logout.bind(this);
+    this.onAuthLoginSuccess = this.onAuthLoginSuccess.bind(this);
   }
 
   getMe() {
+    console.log("===== GET ME")
     return new Promise((resolve, reject) => {
       if(!this.sessionData.get("authToken")) {
+        console.log("No auth token");
         reject("No auth token");
       }
 
       window.API.get('/auth/me/')
         .then((response) => {
+          console.log("SUCCESS");
+          console.log(response);
           this.userData.replace(response.data);
           resolve(response.data);
         })
         .catch((error) => {
+          console.log("FAILURE");
+          console.log(error);
           reject(error)
         })
     });
@@ -61,15 +72,19 @@ class UserStore {
   }
 
   setupAuthToken(authToken) {
+    console.log("=============== setupAuthToken")
     return new Promise((resolve, reject) => {
       this.sessionData.set("authToken", authToken);
       Cookies.set("representAuthToken", authToken, { expires: Infinity });
       window.API.defaults.headers.common['Authorization'] = "Token " + authToken;
       this.getMe()
         .then((response) => {
+          console.log("Getme response:")
+          console.log(response);
           resolve(response)
         })
         .catch((error) => {
+          console.log(error);
           reject(error)
         })
     });
@@ -90,11 +105,13 @@ class UserStore {
 
   authLogin(username, password) {
     return window.API.post('/auth/login/', { username, password })
-      .then(function (response) {
-        if(response.data.auth_token) {
-          this.setupAuthToken(response.data.auth_token);
-        }
-      }.bind(this));
+      .then(this.onAuthLoginSuccess);
+  }
+
+  onAuthLoginSuccess(response) {
+    if(response.data.auth_token) {
+      this.setupAuthToken(response.data.auth_token);
+    }
   }
 
   toggleUserDialog() {
@@ -127,15 +144,28 @@ class UserStore {
 
 
   logout() {
+    console.log("======== LOGGING OUT")
+    console.log("Userdata is now:")
+    console.log(this.userData);
+    console.log(this.userData.size);
+    console.log(this.userData.get("id"));
+    console.log("Performing logout...")
     Cookies.expire("representAuthToken");
     this.sessionData.set("authToken", "");
-    this.userData.replace({});
+    this.userData.clear();
     this.sessionData.set("showUserDialogue", false);
-    location.reload();
+    //location.reload();
+    console.log("Userdata is now:")
+    console.log(this.userData);
+    console.log(this.userData.size);
+    console.log(this.userData.get("id"));
   }
 
   isLoggedIn() {
-    return this.userData.has("id");
+    console.log("==== ISLOGGEDIN");
+    const ret = this.userData.get('id');
+    console.log(ret);
+    return ret;
   }
 
   compareUsers(userAId, userBId) {

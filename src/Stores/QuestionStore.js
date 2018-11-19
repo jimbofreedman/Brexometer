@@ -2,8 +2,8 @@ import { observable, autorun } from 'mobx';
 
 class QuestionStore {
 
-  questions = observable.shallowMap({});
-  searchCache = observable.shallowMap({});
+  questions = observable.map({}, { deep: false });
+  searchCache = observable.map({}, { deep: false });
 
   loadQuestion(id, forceUpdate = false) {
     let self = this;

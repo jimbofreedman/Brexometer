@@ -2,10 +2,10 @@ import { observable, autorun } from 'mobx';
 
 class DemographicsDataStore {
 
-    usersDemographicsData = observable.shallowMap({});
-    questionDemographicsData = observable.shallowMap({});
-    questionWeightedAgeData = observable.shallowMap({});
-    questionWeightedGeoData = observable.shallowMap({});
+    usersDemographicsData = observable.map({}, { deep: false });
+    questionDemographicsData = observable.map({}, { deep: false });
+    questionWeightedAgeData = observable.map({}, { deep: false });
+    questionWeightedGeoData = observable.map({}, { deep: false });
 
     getUsersDemographicsData(geoId) {
         let reqStr = '/api/users/demographics/';

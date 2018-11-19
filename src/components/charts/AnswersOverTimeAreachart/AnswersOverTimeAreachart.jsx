@@ -10,11 +10,11 @@ import LoadingIndicator from '../../LoadingIndicator';
 
 const AnswersOverTimeAreachart = inject("AppStatisticsStore")(({AppStatisticsStore, size}) => {
 	let usersStatsKey = "user_count";
-	let viewData = observable.shallowObject({
+	let viewData = observable.object({
 		width: (size && size.width) || 400,
 		height: (size && size.height) || 300,
 		values: null
-	});
+	}, {}, { deep: false });
 
 	let data = AppStatisticsStore.advancedData.get(usersStatsKey);
 	if(data) {

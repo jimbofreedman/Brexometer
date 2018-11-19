@@ -2,7 +2,7 @@ import { observable, autorun } from 'mobx';
 
 class AppStatisticsStore {
 
-    advancedData = observable.shallowMap({});
+    advancedData = observable.map({}, { deep: false });
 
     getAdvancedStatsData(geoId) {
         window.API.get('/api/advanced_stats/')

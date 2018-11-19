@@ -8,9 +8,9 @@ import LoadingIndicator from '../../LoadingIndicator';
 const CertanityStatisticsBarchart = inject("CensusDataStore", "DemographicsDataStore")(({ CensusDataStore, DemographicsDataStore, questionId, geoId}) => {
   let certainityStatisticsArr = null;
   let currentlyShowingIndex = null;
-  let viewData = observable.shallowObject({
+  let viewData = observable.object({
     values: null
-  });
+  }, {}, { deep: false });
 
   initData(function (censusData, demogrData) {
     certainityStatisticsArr = computeStatisticsData(censusData, demogrData);

@@ -12,11 +12,10 @@ var CollectionsList = inject("CollectionStore")(observer(({ CollectionStore }) =
   }
 
   let collections = CollectionStore.collections.entries();
-
   return (
     <div>
       <div><CollectionSearch /></div>
-      {collections.map((collection_obj) => {
+      {Array.from(collections, (collection_obj) => {
         let id = collection_obj[0];
         let collection = collection_obj[1];
         return (

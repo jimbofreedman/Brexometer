@@ -9,11 +9,11 @@ import LoadingIndicator from '../../LoadingIndicator';
 
 const AgeProfileBarchart = inject("DemographicsDataStore")(({DemographicsDataStore, size, geoId}) => {
 
-  let viewData = observable.shallowObject({
+  let viewData = observable.object({
     width: (size && size.width) || 400,
     height: (size && size.height) || 300,
     values: computeBarchartData(DemographicsDataStore.usersDemographicsData.get(geoId))
-  });
+  }, {}, { deep: false });
 
   if (!viewData.values) {
     DemographicsDataStore.getUsersDemographicsData(geoId);

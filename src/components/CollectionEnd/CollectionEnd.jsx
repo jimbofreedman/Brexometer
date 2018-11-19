@@ -211,7 +211,7 @@ class CollectionEndShare extends Component {
             actions={
               <FlatButton
                 label="Close"
-                onTouchTap={() => {
+                onClick={() => {
                   this.setState({showEmbedDialog: false});
                 }}
               />

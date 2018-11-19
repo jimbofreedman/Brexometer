@@ -2,7 +2,7 @@ import { observable, autorun } from 'mobx';
 
 class CensusDataStore {
 
-  censusData = observable.shallowMap({});
+  censusData = observable.map({}, { deep: false });
 
   // use this in case you need to preload data
   // @returns promise

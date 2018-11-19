@@ -3,10 +3,10 @@ import Promise from 'promise';
 
 class CollectionStore {
 
-  collections = observable.shallowMap([]);
-  collectionItems = observable.shallowMap({});
-  searchCache = observable.shallowMap({});
-  next = observable.shallowObject({values: null});
+  collections = observable.map([], { deep: false });
+  collectionItems = observable.map({}, { deep: false });
+  searchCache = observable.map({} , { deep: false });
+  next = observable.object({values: null}, {}, { deep: false });
 
 
   constructor() {

@@ -101,7 +101,7 @@ const styles = {
 
   render() {
     return (
-      <Dialog title="Add an Existing Question" actions={<FlatButton label="Cancel" secondary={true} onTouchTap={() => this.props.onClose()} />} modal={false} open={this.props.open} onRequestClose={() => this.props.onClose()}>
+      <Dialog title="Add an Existing Question" actions={<FlatButton label="Cancel" secondary={true} onClick={() => this.props.onClose()} />} modal={false} open={this.props.open} onRequestClose={() => this.props.onClose()}>
         <TextField value={this.state.search} style={styles.textField} hintText="Question or ID" fullWidth={true} onChange={(e, newValue) => this.setState({search: newValue})} />
         <List>
           {this.state.results.map((question, index) => <ListItem onClick={() => this.handleQuestionSelected(question)} key={index} hoverColor={green100} primaryText={this.props.QuestionStore.questions.get(question).question} rightIcon={<Add />}/>)}
@@ -146,7 +146,7 @@ class BreakComposer extends Component {
 
   render() {
     return (
-      <Dialog title="Add a break" actions={<FlatButton label="Cancel" secondary={true} onTouchTap={() => this.props.onClose()} />} modal={false} open={this.props.open} onRequestClose={() => this.props.onClose()}>
+      <Dialog title="Add a break" actions={<FlatButton label="Cancel" secondary={true} onClick={() => this.props.onClose()} />} modal={false} open={this.props.open} onRequestClose={() => this.props.onClose()}>
         <TextField value={this.state.title} style={styles.textField} hintText="Break title" fullWidth={true} onChange={(e, newValue) => this.setState({title: newValue})} />
         <TextField value={this.state.body} style={styles.textField} hintText="Break body" fullWidth={true} onChange={(e, newValue) => this.setState({body: newValue})} multiLine={true} />
       </Dialog>
