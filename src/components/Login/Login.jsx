@@ -1,147 +1,125 @@
 import React, { Component } from 'react';
 import { observer, inject } from "mobx-react";
 import FacebookLogin from 'react-facebook-login';
-
-import TextField from 'material-ui/TextField';
-import Paper from 'material-ui/Paper';
-import { grey100 } from 'material-ui/styles/colors';
-import Dialog from 'material-ui/Dialog';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
 import { Redirect } from 'react-router-dom';
+import MobxReactForm from 'mobx-react-form';
 
-import DynamicConfigService from '../../services/DynamicConfigService';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogActions from '@material-ui/core/DialogActions';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import FormLabel from '@material-ui/core/FormLabel';
+
+import { grey100 } from 'material-ui/styles/colors';
+
+import validatorjs from 'validatorjs';
 
 import './Login.css';
 import smallLogo from './represent_white_outline.svg';
 
-@inject("authStore")
-@inject("routing")
+
+const RaisedButton = (props) => {
+  return <Button variant="contained" {...props} />
+};
+
+const fields = [{
+  name: 'username',
+  label: 'Username',
+  placeholder: 'Enter your username',
+  rules: 'required|string',
+}, {
+  name: 'password',
+  label: 'Password',
+  type: 'password',
+  placeholder: 'Enter your password',
+  rules: 'required|string',
+}];
+const plugins = { dvr: validatorjs };
+const loginForm = new MobxReactForm({ fields }, { plugins, {} });
+
+@inject("authStore", "routing")
 @observer
 export default class Login extends Component {
 
   constructor() {
     super();
 
-    this.state = {
-      email: "",
-      password: "",
-      problems: null
-    }
-    this.attemptLogin = this.attemptLogin.bind(this);
-    this.facebookCallback = this.facebookCallback.bind(this);
-  }
-
-  componentWillMount() {
-    if(this.props.match.params.email) {
-      this.setState({email: decodeURIComponent(this.props.match.params.email)});
-    }
-
-    this.dynamicConfig = DynamicConfigService;
-    if(this.props.match.params.dynamicConfig) {
-      this.dynamicConfig.setConfigFromRaw(this.props.match.params.dynamicConfig)
-    }
+    this.facebookLoginCallback = this.facebookLoginCallback.bind(this);
   }
 
   render() {
     const { authStore, routing } = this.props;
-    const { history, push, goBack, location } = routing;
+    const { push, goBack, location } = routing;
 
     if (authStore.currentUser) {
       return <Redirect to={location.state && location.state.from ? location.state.from : "/"} />;
     }
 
-    console.log("======= LOGIN");
-    console.log("Location:");
-    console.log(location);
-    console.log("Location.state:");
-    console.log(location.state);
-    console.log("Location.state.from.pathname:");
-    console.log(location.state ? location.state.from.pathname : null);
-
     return (
-      <div style={{height: '100%'}}>
-        <div style={{ display: 'table', width: '100%', height: '100%' }}>
-          <div style={{ display: 'table-cell', verticalAlign: 'middle', textAlign: 'center', padding: '10px 20px' }}>
-            <Paper zDepth={1} style={{padding: '10px 20px', maxWidth: '320px', marginLeft: 'auto', marginRight: 'auto'}}>
-              <p style={{fontWeight: 'bold', margin: '10px 0'}}><img src={smallLogo} style={{height: '30px', verticalAlign: 'middle', marginRight: '10px', marginTop: '-4px'}} />Please login to continue</p>
-              <form onSubmit={(e) => {
-                  e.preventDefault();
-                  this.attemptLogin();
-                }}
-              >
-                <TextField hintText="Username / email" style={{width: '100%'}} value={this.state.email} onChange={(e, newValue) => this.setState({email: newValue})}/><br />
-                <TextField hintText="Password" type="password" style={{width: '100%'}} value={this.state.password} onChange={(e, newValue) => this.setState({password: newValue})}/><br />
-                <FlatButton
-                  type="submit"
-                  label="login"
-                  style={{width: '100%', marginBottom: '5px'}}
-                  backgroundColor={grey100} secondary
-                  onClick={this.attemptLogin}
-                />
-              </form>
-              <FacebookLogin
-                cssClass="custom-facebook-login-button"
-                appId={String(window.authSettings.facebookId)}
-                autoLoad={false}
-                fields="name,email,picture"
-                callback={this.facebookCallback}
-                style={{
-                  display: 'inline-block',
-                  width: '100%',
-                }}
-                textButton="Connect with Facebook"
-                disableMobileRedirect={true}
-                />
-              <p style={{textAlign: 'center', fontSize: '12px'}}>
-                By using the service, you agree to the
-                <a href="https://represent.me/legal/terms/">terms and conditions</a> and
-                <a href="https://represent.me/legal/privacy-policy/">privacy policy</a>
-                <br/>
-                <br/>
-                <a onClick={() => push("/join/")} className="FakeLink">{"Don't have an account?"}</a>
-                <br/>
-                <a onClick={() => push("https://app.represent.me/access/forgot-password/")} className="FakeLink">{"Forgotten your password?"}</a>
-              </p>
-            </Paper>
-            {history.length > 1 &&
-              <Paper onClick={goBack} zDepth={1} style={{padding: '10px 20px', maxWidth: '320px', marginLeft: 'auto', marginRight: 'auto', marginTop: '10px'}}>
-                <a className="FakeLink">&larr; {"back"}</a>
-              </Paper>
-            }
-          </div>
-        </div>
-
-        <Dialog
-          title="Could not complete login"
-          open={this.state.problems ? true : false}
-          onRequestClose={() => this.setState({problems: null})}
-          actions={
-            <FlatButton
-              label="Close"
-              primary={true}
-              onClick={() => this.setState({problems: null})}
+      <div>
+        <Dialog open={true} aria-labelledby="login-dialog-title">
+          <DialogTitle id="login-dialog-title">Please login to continue</DialogTitle>
+          <DialogContent>
+            <form onSubmit={() => { authStore.login(loginForm.values()) }}>
+              <TextField
+                fullWidth
+                required
+                margin="normal"
+                {...loginForm.$('username').bind()}
+              />
+              <TextField
+                fullWidth
+                required
+                margin="normal"
+                {...loginForm.$('password').bind()}
+              />
+              <FormLabel error={authStore.errors}>{authStore.errors}</FormLabel>
+            </form>
+          </DialogContent>
+          <DialogActions>
+            <RaisedButton
+              onClick={() => { authStore.login(loginForm.values()) }}
+              color="primary" 
+              disabled={!loginForm.isValid}
+            >
+              Login
+            </RaisedButton>
+            <RaisedButton onClick={() => push("/join/")} color="primary">
+              Sign Up
+            </RaisedButton>
+            <RaisedButton onClick={() => push("https://app.represent.me/access/forgot-password/")} color="default">
+              Reset Password
+            </RaisedButton>
+            <FacebookLogin
+              cssClass="custom-facebook-login-button"
+              appId={String(window.authSettings.facebookId)}
+              autoLoad={false}
+              fields="name,email,picture"
+              callback={this.facebookLoginCallback}
+              style={{
+                display: 'inline-block',
+                width: '100%',
+              }}
+              textButton="Connect with Facebook"
+              disableMobileRedirect={true}
             />
-          }
-        >
-          {this.state.problems && this.state.problems.map((problem, index) => {
-            return <p key={index}>{problem}</p>
-          })}
+            <RaisedButton onClick={() => goBack} color="secondary">
+              Cancel
+            </RaisedButton>
+          </DialogActions>
         </Dialog>
-
       </div>
     )
   }
 
-  attemptLogin() {
+  facebookLoginCallback(result) {
     const { authStore } = this.props;
-
-    authStore.login(this.state.email, this.state.password)
-  }
-
-  facebookCallback(result) {
     if(result.accessToken) {
-      this.props.authStore.loginYeti('facebook', result.accessToken);
+      authStore.loginYeti('facebook', result.accessToken);
     }
   }
 }

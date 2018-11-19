@@ -22,7 +22,7 @@ class AuthStore {
     this.showUserDialog = !this.showUserDialog;
   }
 
-  @action login(username, password) {
+  @action login({username, password}) {
     this.inProgress = true;
     this.errors = undefined;
     return agent.Auth.login(username, password)
@@ -34,8 +34,9 @@ class AuthStore {
       .then(() => this.pullUser())
       .catch(
         action(err => {
+          // This is a bit hardcoded but we know the API
           this.errors =
-            err.response && err.response.body && err.response.body.errors;
+            err.response && err.response.body && err.response.body.nonFieldErrors && err.response.body.nonFieldErrors[0];
           throw err;
         })
       )
