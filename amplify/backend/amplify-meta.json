@@ -14,7 +14,19 @@
 	"hosting": {
 		"S3AndCloudFront": {
 			"service": "S3AndCloudFront",
-			"providerPlugin": "awscloudformation"
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/brexometer-20181119175307-deployment/amplify-cfn-templates/hosting/template.json",
+				"logicalId": "hostingS3AndCloudFront"
+			},
+			"lastPushTimeStamp": "2018-11-19T17:57:38.254Z",
+			"output": {
+				"S3BucketSecureURL": "https://brexometer-20181119175549--hostingbucket.s3.amazonaws.com",
+				"WebsiteURL": "http://brexometer-20181119175549--hostingbucket.s3-website-eu-west-1.amazonaws.com",
+				"Region": "eu-west-1",
+				"HostingBucketName": "brexometer-20181119175549--hostingbucket"
+			},
+			"lastPushDirHash": "00QRh0i8FSCW/ygnT7LDl9xdaJE="
 		}
 	}
 }
