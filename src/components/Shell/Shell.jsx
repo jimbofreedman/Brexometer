@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { inject, observer } from "mobx-react";
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { Scrollbars } from 'react-custom-scrollbars';
+import { Link } from 'react-router-dom';
+import DevTools, { setLogEnabled } from 'mobx-react-devtools';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
@@ -35,8 +37,7 @@ import QuestionLiquidDisplay from '../charts/QuestionLiquidPiechart/QuestionLiqu
 import CollectionCharts from '../charts/CollectionCharts';
 import Links from '../navComponent';
 import DynamicConfigService from '../../services/DynamicConfigService';
-import DevTools, { setLogEnabled } from 'mobx-react-devtools';
-import { Link } from 'react-router-dom';
+import LoadingIndicator from '../LoadingIndicator';
 
 import CandidateIntro from '../CandidateIntro';
 import CandidateNew from '../CandidateNew';
@@ -84,8 +85,10 @@ const muiTheme = getMuiTheme({
 });
 
 function onProfileClick(){
-  if(this.props.UserStore.userData.has("id")) { // Is user logged in?
-    this.props.UserStore.toggleUserDialog();
+  const { authStore } = this.props;
+
+  if(authStore.currentUser) { // Is user logged in?
+    authStore.toggleUserDialog();
   }else {
     if(this.props.history.location.pathname !== "/login"){
       this.navigateToLogin();
@@ -116,7 +119,7 @@ const ProtectedRoute = ({ component: Component, isAuthenticated: isAuthenticated
   )} />
 );
 
-@inject("UserStore")
+@inject("authStore")
 @observer
 export default class Shell extends Component {
   constructor(props) {
@@ -125,15 +128,15 @@ export default class Shell extends Component {
   }
 
   isAuthenticated() {
-    const { UserStore } = this.props;
-    console.log("===ISAUTHENTICATED")
-    console.log(UserStore.userData);
-    const result = UserStore && UserStore.isLoggedIn();
-    console.log("IsAuthenticated", result);
+    const { authStore } = this.props;
+    const result = authStore && authStore.currentUser;
     return result;
   }
 
   render() {
+    const { authStore } = this.props;
+    const isLoading = authStore.inProgress;
+
     let raw_config = getDynamicConfig(this.props.history.location.pathname);
     this.dynamicConfig = DynamicConfigService;
     if(raw_config) {
@@ -143,10 +146,10 @@ export default class Shell extends Component {
     let split_pathname = this.props.history.location.pathname.split("/");
 
     // DISABLED HISTORY UPDATE TO STORE AS CAUSES OVERFLOW OF RENDERS
-    // history.listen((location, action) => { // Storing location in UserStore forces a rerender of the Shell each navigation
-    //   this.props.UserStore.userLocation.replace(location);
+    // history.listen((location, action) => { // Storing location in authStore forces a rerender of the Shell each navigation
+    //   authStore.userLocation.replace(location);
     // });
-    //iconElementLeft={this.props.UserStore.userLocation.get("pathname") !== "/" ? <IconButton onClick={() => { history.goBack() }}><ArrowBack color={cyan600} /></IconButton> : null}
+    //iconElementLeft={authStore.userLocation.get("pathname") !== "/" ? <IconButton onClick={() => { history.goBack() }}><ArrowBack color={cyan600} /></IconButton> : null}
 
     let mainContentStyle = {
       height: "calc(100% - 28px)",
@@ -162,6 +165,7 @@ export default class Shell extends Component {
           <MuiThemeProvider muiTheme={muiTheme}>
             <div style={{height: '100%', position: 'absolute', width: '100%', top: 0, left: 0, overflow: 'hidden'}}>
               <Link to="/Logout">Logout</Link>
+              <LoadingIndicator visible={isLoading} />
               <div style={mainContentStyle}>
                 <Scrollbars autoHide>
                   <ReactCSSTransitionGroup
@@ -210,8 +214,8 @@ export default class Shell extends Component {
                       iconElementLeft={<img src={smallLogo} style={{height: '20px'}} onClick={() => window.open("https://represent.me",'_blank')}/>}
                       iconElementRight={
                         <span>
-                          <a onClick={() => onProfileClick.call(this)} style={{color: cyan600, fontSize: '14px', lineHeight: '16px', marginRight: '10px', marginTop: '4px', float: 'left'}}>{this.props.UserStore.userData.has("id") && this.props.UserStore.userData.get("first_name") + ' ' + this.props.UserStore.userData.get("last_name")}</a>
-                          <Avatar style={{height: '16px', width: '16px', margin: '3px 0px'}} icon={!this.props.UserStore.userData.has("id") ? <Face /> : null} src={this.props.UserStore.userData.has("photo") ? this.props.UserStore.userData.get("photo").replace("localhost:8000", "represent.me") : null} backgroundColor={cyan600} onClick={() => onProfileClick.call(this)}/>
+                          <a onClick={() => onProfileClick.call(this)} style={{color: cyan600, fontSize: '14px', lineHeight: '16px', marginRight: '10px', marginTop: '4px', float: 'left'}}>{authStore.currentUser && authStore.currentUser.firstName + ' ' + authStore.currentUser.lastName}</a>
+                          <Avatar style={{height: '16px', width: '16px', margin: '3px 0px'}} icon={!authStore.currentUser ? <Face /> : null} src={authStore.currentUser && authStore.currentUser.photo ? authStore.currentUser.photo.replace("localhost:8000", "represent.me") : null} backgroundColor={cyan600} onClick={() => onProfileClick.call(this)}/>
                       </span>}
                       style={{
                         height: '24px',
@@ -242,26 +246,26 @@ export default class Shell extends Component {
                         label="Logout"
                         secondary={true}
                         onClick={() => {
-                          this.props.UserStore.logout();
+                          authStore.logout();
                         }}
                       />
                       <FlatButton
                         label="Close"
                         secondary={true}
                         onClick={() => {
-                          this.props.UserStore.toggleUserDialog();
+                          authStore.toggleUserDialog();
                         }}
                       />
                     </div>
                   }
                   modal={false}
-                  open={this.props.UserStore.sessionData.get("showUserDialog")}
+                  open={authStore.showUserDialog}
                   onRequestClose={() => {
-                    this.props.UserStore.toggleUserDialog();
+                    authStore.toggleUserDialog();
                   }}
                 >
-                  <TextField value={this.props.UserStore.userData.get("first_name")} fullWidth={true} id="firstname"/>
-                  <TextField value={this.props.UserStore.userData.get("last_name")} fullWidth={true} id="lastname"/>
+                  <TextField value={authStore.currentUser && authStore.currentUser.firstName} fullWidth={true} id="firstname"/>
+                  <TextField value={authStore.currentUser && authStore.currentUser.lastName} fullWidth={true} id="lastname"/>
                 </Dialog>
                 <DevTools />
               </div>

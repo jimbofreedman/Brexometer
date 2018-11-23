@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
 
-const AuthCode = inject('UserStore')(
+const AuthCode = inject('authStore')(
   observer(props => {
     const code = props.match.params.code;
     const email = props.match.params.email;
@@ -13,7 +13,7 @@ const AuthCode = inject('UserStore')(
       .then(response => {
         console.log(response.data);
         if (response.data.access_token) {
-          props.UserStore.setupAuthToken(response.data.access_token);
+          props.authStore.setupAuthToken(response.data.access_token);
           props.history.push(
             `/${decodeURIComponent(props.match.params.redirect)}`
           );

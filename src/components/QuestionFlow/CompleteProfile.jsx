@@ -26,7 +26,7 @@ import DateOfBirth from '../DateOfBirth';
 import GeoService from '../../services/GeoService';
 
 export default
-@inject('UserStore')
+@inject('authStore')
 @observer
 class CompleteProfile extends Component {
   constructor() {
@@ -60,21 +60,22 @@ class CompleteProfile extends Component {
   }
 
   checkProfile() {
-    if (this.props.UserStore.userData.has('id') && !this.state.checkedProfile) {
-      const profile = this.props.UserStore.userData.toJS();
+    const currentUser = this.props.authStore.currentUser;
+
+    if (currentUser && !this.state.checkedProfile) {
       if (
-        profile.dob === null ||
-        profile.gender === 0 ||
-        profile.address === ''
+        currentUser.dob === null ||
+        currentUser.gender === 0 ||
+        currentUser.address === ''
       ) {
-        console.log('Check', profile.address.length > 0);
+        console.log('Check', currentUser.address.length > 0);
         this.setState({
           checkedProfile: true,
           shown: true,
-          ddDOB: profile.dob || null,
-          ddGender: profile.gender || null,
-          txtPostcode: profile.address,
-          addressAlreadySet: profile.address.length > 0,
+          ddDOB: currentUser.dob || null,
+          ddGender: currentUser.gender || null,
+          txtPostcode: currentUser.address,
+          addressAlreadySet: currentUser.address.length > 0,
         });
       }
     }

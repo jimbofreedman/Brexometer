@@ -37,12 +37,12 @@ const labels = {
 
 const CompareCollectionUsers = inject(
   'CollectionStore',
-  'UserStore',
+  'authStore',
   'QuestionStore'
 )(
-  observer(({ CollectionStore, UserStore, QuestionStore, userIds = [7] }) => {
-    const userLoggedIn = true; // UserStore.isLoggedIn();
-    const currentUserId = 5570; // userLoggedIn && UserStore.userData.get("id");
+  observer(({ CollectionStore, authStore, QuestionStore, userIds = [7] }) => {
+    const userLoggedIn = true; // authStore.isLoggedIn();
+    const currentUserId = 5570; // userLoggedIn && authStore.userData.get("id");
     const viewData = observable.object(
       {
         isLoggedIn: userLoggedIn,
@@ -56,11 +56,11 @@ const CompareCollectionUsers = inject(
     if (!userIds.length) console.log('No users specified to compare');
     if (userLoggedIn) {
       userIds.map(id => {
-        UserStore.getUserById(id).then(res => {
+        authStore.getUserById(id).then(res => {
           console.log('userB', res);
           return viewData.users.push(res);
         });
-        UserStore.compareUsers(currentUserId, id).then(res => {
+        authStore.compareUsers(currentUserId, id).then(res => {
           console.log('compare', res);
           return viewData.compareData.set(id, res);
         });

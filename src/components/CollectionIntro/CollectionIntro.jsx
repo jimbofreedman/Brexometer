@@ -16,7 +16,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import DynamicConfigService from '../../services/DynamicConfigService';
 import ErrorReload from '../ErrorReload';
 
-@inject('UserStore', 'CollectionStore', 'routing')
+@inject('authStore', 'CollectionStore', 'routing')
 @observer
 class CollectionIntro extends Component {
   constructor() {
@@ -144,9 +144,9 @@ class CollectionIntro extends Component {
                 >
                   <RaisedButton label="Start" primary />
                 </Link>
-                {this.props.UserStore.userData.has('id') &&
+                {this.props.authStore.currentUser &&
                   this.props.CollectionStore.collections.get(collectionId).user
-                    .id === this.props.UserStore.userData.get('id') && (
+                    .id === this.props.authStore.currentUser.id && (
                     <Link to={`/survey/${collectionId}/edit`}>
                       <RaisedButton label="Edit" primary />
                     </Link>

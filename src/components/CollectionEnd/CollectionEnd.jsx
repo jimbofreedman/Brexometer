@@ -53,7 +53,7 @@ const questionShareLink = questionId => {
   )}`;
 };
 
-@inject('CollectionStore', 'QuestionStore', 'UserStore')
+@inject('CollectionStore', 'QuestionStore', 'authStore')
 @observer
 class CollectionEnd extends Component {
   constructor() {
@@ -141,7 +141,7 @@ class CollectionEnd extends Component {
     }
 
     let messengerRefData = 'get_started_with_token';
-    const authToken = this.props.UserStore.getAuthToken();
+    const authToken = this.props.authStore.getAuthToken();
     if (authToken) {
       messengerRefData += `+auth_token=${authToken}`;
     }

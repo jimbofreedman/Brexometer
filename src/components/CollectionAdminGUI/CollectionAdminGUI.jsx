@@ -308,13 +308,13 @@ const SortableQuestions = SortableContainer(({ items, onRemove }) => (
       if (item.type === 'Q') {
         // Type is question
         items.map((value, index) => {
-            if(!value) {
-              return <SortableQuestionLoading key={`item-${index}`} index={index}/>;
-            }
-              return <SortableQuestion key={`item-${index}`} index={index} value={value} orderNumber={(index + 1)} onRemove={() => onRemove(value.id)} />
-            
-          })
-        });
+          if (!value) {
+            return <SortableQuestionLoading key={`item-${index}`} index={index}/>;
+          }
+          return <SortableQuestion key={`item-${index}`} index={index} value={value} orderNumber={(index + 1)}
+                                   onRemove={() => onRemove(value.id)}/>
+
+        })
       } else if (item.type === 'B') {
         // Type is break
       }

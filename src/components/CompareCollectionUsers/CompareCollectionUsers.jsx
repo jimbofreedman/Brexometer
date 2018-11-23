@@ -24,10 +24,10 @@ import LoadingIndicator from '../LoadingIndicator';
 
 import './style.css';
 
-const CompareCollectionUsers = inject('CollectionStore', 'UserStore')(
-  observer(({ CollectionStore, UserStore, userIds = [] }) => {
-    const userLoggedIn = UserStore.isLoggedIn();
-    const currentUserId = userLoggedIn && UserStore.userData.get('id');
+const CompareCollectionUsers = inject('CollectionStore', 'authStore')(
+  observer(({ CollectionStore, authStore, userIds = [] }) => {
+    const userLoggedIn = authStore.isLoggedIn();
+    const currentUserId = userLoggedIn && authStore.currentUser.id;
     const viewData = observable.object(
       {
         isLoggedIn: userLoggedIn,
@@ -41,8 +41,8 @@ const CompareCollectionUsers = inject('CollectionStore', 'UserStore')(
     if (userIds.length == 0) console.warn('No users specified to compare');
     if (userLoggedIn) {
       userIds.map(id => {
-        UserStore.getUserById(id).then(res => viewData.users.push(res));
-        UserStore.compareUsers(currentUserId, id).then(res =>
+        authStore.getUserById(id).then(res => viewData.users.push(res));
+        authStore.compareUsers(currentUserId, id).then(res =>
           viewData.compareData.set(id, res)
         );
       });
