@@ -8,7 +8,8 @@ import './CollectionsList.css';
 
 
 
-const CollectionsList = inject("CollectionStore", "UserStore")(observer(({ CollectionStore, UserStore, history }) => {
+const CollectionsList = inject("CollectionStore", "UserStore")(observer(({ CollectionStore, UserStore, routing }) => {
+  const { history } = this.props;
 
   if (CollectionStore.collections.size <= 0) {
     return null;
@@ -51,7 +52,7 @@ const CollectionsList = inject("CollectionStore", "UserStore")(observer(({ Colle
 
 
     <div>
-     <RaisedButton label="Sign Up" onClick={() => history.push('/login')} style={{marginRight: 10}}/>
+     <RaisedButton label="Sign Up" onClick={() => history.push('login')} style={{marginRight: 10}}/>
      <RaisedButton label="Features" primary={true} href="https://represent.me/features/" target="_blank"  />
     </div>
 
