@@ -27,7 +27,7 @@ import './SurveyFlow.css'
     this.navigatePrevious = this.navigatePrevious.bind(this)
     this.navigateN = this.navigateN.bind(this)
     this.navigateTab = this.navigateTab.bind(this)
-    this.navigateEnd = this.navigateEnd.bind(this)
+    this.navigateEnd2 = this.navigateEnd2.bind(this)
   }
 
   componentWillMount() {

@@ -204,7 +204,7 @@ class CompareCollectionUsers extends Component {
       //let candidatesIds = [17351, 17663, 17667, 17687, 17689, 17710, 17711, 17692];
       //let candidatesIds = this.dynamicConfig.config.survey_end.candidatesIds;
       // TODo candidateids - @jimbofreedman
-      const candidateIds = [];
+      let candidatesIds = [];
       UserStore.getUsersById(candidatesIds).then((usersData) => {
         usersData.results.ids.forEach((id) => {
           this.viewData.candidates.push(usersData.results[id])

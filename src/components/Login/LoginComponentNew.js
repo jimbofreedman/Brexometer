@@ -79,21 +79,21 @@ const styles = {
     }
   }
   attemptLogin = () => {
-    const { history, location, userStore } = this.props;
+    const { history, location, UserStore } = this.props;
 
     UserStore.authLogin(this.state.email, this.state.password)
-    .then(res =>
-      history.push(location.state && location.state.from ? location.state.from : "/")
+      .then(res => history.push(location.state && location.state.from ? location.state.from : "/"))
       .catch((error) => {
-        if (!error.response) {
-          console.log(error);
-        } else if (error.response.data.non_field_errors) {
-          this.setState({problems: ["Username / password combination not found! Please check your details and try again"]});
-        } else {
-          this.setState({problems: JSON.stringify(error.response.data).replace(/:/g,": ").replace(/[&\/\\#+()$~%.'"*?<>{}\[\]]/g, "").split(",")});
-        }
+      if (!error.response) {
+        console.log(error);
+      } else if (error.response.data.non_field_errors) {
+        this.setState({problems: ["Username / password combination not found! Please check your details and try again"]});
+      } else {
+        this.setState({problems: JSON.stringify(error.response.data).replace(/:/g,": ").replace(/[&\/\\#+()$~%.'"*?<>{}\[\]]/g, "").split(",")});
+      }
     })
   }
+
   render() {
   return (
     <div className="accountmgmt">

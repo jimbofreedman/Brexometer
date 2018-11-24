@@ -35,9 +35,6 @@ import LinearProgress from 'material-ui/LinearProgress';
   }
 
   componentWillMount() {
-    const { routing } = this.props;
-    const { history } = routing;
-
     const { CollectionStore, UserStore, history, match } = this.props;
     const collectionId = parseInt(match.params.collectionId, 10);
     CollectionStore.getCollectionById(collectionId).then((collection) => {
