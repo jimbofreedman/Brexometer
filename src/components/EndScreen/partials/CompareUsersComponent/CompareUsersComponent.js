@@ -168,6 +168,7 @@ class CompareCollectionUsers extends Component {
   loadUsersCompareData = () => {
     //let { CollectionStore, UserStore, collectionId = 1, userIds } = this.props;
     let { UserStore, userIds } = this.props;
+    console.log(this.props);
     //console.log('loadUsersCompareData: ', UserStore.userData.get("id"));
     let currentUserId = UserStore.isLoggedIn() && UserStore.userData.get("id");
     if (!currentUserId) return;

@@ -12,10 +12,6 @@ class AuthStore {
 
   @observable loadingUser;
 
-  // @observable updatingUser;
-
-  // @observable updatingUserErrors;
-
   @observable showUserDialog = false;
 
   @action toggleUserDialog() {
@@ -117,21 +113,6 @@ class AuthStore {
         })
       );
   }
-
-  // @action updateUser(newUser) {
-  //   this.updatingUser = true;
-  //   return agent.Auth.save(newUser)
-  //     .then(
-  //       action(({ user }) => {
-  //         this.currentUser = user;
-  //       })
-  //     )
-  //     .finally(
-  //       action(() => {
-  //         this.updatingUser = false;
-  //       })
-  //     );
-  // }
 
   @action forgetUser() {
     this.currentUser = undefined;

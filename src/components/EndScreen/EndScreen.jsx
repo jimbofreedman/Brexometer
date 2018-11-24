@@ -102,7 +102,7 @@ class EndScreen extends Component {
   render() {
     // TODO fix comparing users - @jimbofreedman
     // const usersToCompare = observable.shallowArray(this.dynamicConfig.config.survey_end.compare_users)
-    const usersToCompare = [];
+    const usersToCompare =  observable.shallowArray();
     return (
       <div>
         <CompareCollectionUsers userIds={usersToCompare} collectionId={this.props.match.params.collectionId}/>

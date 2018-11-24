@@ -132,23 +132,21 @@ import './SurveyFlow.css'
 
   navigateNext() {
     const { match } = this.props;
-    const { itemNumberString } = match.params;
-    const itemNumber = parseInt(itemNumberString);
-
-    this.navigateN(itemNumber + 1);
+    const { itemNumber } = match.params;
+    this.navigateN(parseInt(itemNumber) + 1);
   }
 
   navigatePrevious() {
     const { match } = this.props;
-    const { itemNumberString } = match.params;
-    const itemNumber = parseInt(itemNumberString);
-
-    this.navigateN(itemNumber - 1);
+    const { itemNumber } = match.params;
+    this.navigateN(parseInt(itemNumber) - 1);
   }
 
   navigateN(itemNumber) {
     const { history, match } = this.props;
     const { surveyId } = match.params;
+
+    console.log(itemNumber);
 
     if (itemNumber >= this.state.collectionItems.length) {
       this.navigateEnd2()
